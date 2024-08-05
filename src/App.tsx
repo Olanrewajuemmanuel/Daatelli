@@ -1,19 +1,36 @@
-import "./App.css";
-import { useEffect, useState } from "react";
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
+import ErrorPage from "./pages/404/ErrorPage";
+import Home from "./pages/Home";
+import Login from "./pages/Auth/Login";
+import Register from "./pages/Auth/Register";
+import { routesMap } from "./constants";
 
+const routes = [
+  {
+    path: routesMap.home,
+    element: <Home />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: routesMap.login,
+    element: <Login />,
+  },
+  {
+    path: routesMap.register,
+    element: <Register />,
+  },
+  {
+    path: routesMap.feed,
+    element: "<div>Feed</div>",
+  },
+];
+
+const router = createBrowserRouter(routes);
 function App() {
-  const [data, setData] = useState(null);
-
-  useEffect(() => {
-    fetch("http://127.0.0.1:8000")
-      .then((res) => res.json())
-      .then((data) => {
-        setData(data);
-      })
-      .catch((err) => console.error(err));
-  }, []);
-
-  return <div>{data}</div>;
+  return <RouterProvider router={router}></RouterProvider>;
 }
 
 export default App;
