@@ -7,6 +7,9 @@ import Home from "./pages/Home";
 import Login from "./pages/Auth/Login";
 import Register from "./pages/Auth/Register";
 import { routesMap } from "./constants";
+import { CookiesProvider } from "react-cookie";
+import Feed from "./pages/Feed";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 const routes = [
   {
@@ -24,13 +27,13 @@ const routes = [
   },
   {
     path: routesMap.feed,
-    element: "<div>Feed</div>",
+    element: <ProtectedRoute><Feed /></ProtectedRoute>,
   },
 ];
 
 const router = createBrowserRouter(routes);
 function App() {
-  return <RouterProvider router={router}></RouterProvider>;
+  return <CookiesProvider defaultSetOptions={{ path: '/' }}><RouterProvider router={router}></RouterProvider></CookiesProvider>;
 }
 
 export default App;
