@@ -1,7 +1,5 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { useCookies } from "react-cookie"
-import { redirect, useNavigate, Navigate } from "react-router-dom"
-import { routesMap } from "../../constants"
 import { logoutUser } from "../../actions/auth"
 
 
@@ -11,7 +9,7 @@ type Message = {
 }
 
 function Feed() {
-    const [cookies, setCookies, removeCookies] = useCookies(['access', 'refresh'])
+    const [cookies, , removeCookies] = useCookies(['access', 'refresh'])
     const [messages, setMessages] = useState<Message[]>([])
     const handleLogout = () => {
         if (logoutUser(cookies.access)) {

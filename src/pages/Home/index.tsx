@@ -1,11 +1,10 @@
-import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { routesMap } from "../../constants";
 import { useCookies } from "react-cookie";
 
 function Home() {
     const navigate = useNavigate()
-    const [cookies, setCookies] = useCookies(['access'])
+    const [cookies] = useCookies(['access'])
     return (
         <div>
             <header>

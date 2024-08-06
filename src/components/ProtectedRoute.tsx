@@ -4,11 +4,11 @@ import { useEffect, useState } from 'react';
 import { routesMap } from '../constants';
 
 const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
-    const [auth, setAuth] = useState(false)
-    const [cookies, setCookies] = useCookies(['access'])
+    const [, setAuth] = useState(false)
+    const [cookies] = useCookies(['access'])
     const [loading, setLoading] = useState(true)
 
-    let navigate = useNavigate()
+    const navigate = useNavigate()
     useEffect(() => {
 
         if (!cookies.access) {

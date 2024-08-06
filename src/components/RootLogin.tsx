@@ -15,8 +15,8 @@ function RootLogin() {
     const [disabled, setDisabled] = useState(true)
     const [error, setError] = useState('')
     const [formData, setFormData] = useState<FormData>({ email: '', password: '', rememberMe: false });
-    const [cookies, setCookies] = useCookies(['refresh', 'access'])
-    let navigate = useNavigate();
+    const [, setCookies] = useCookies(['refresh', 'access'])
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (formData?.email && formData.password) {
@@ -43,8 +43,8 @@ function RootLogin() {
             }
 
             return navigate(routesMap.feed, { replace: true })
-        } catch (err: any) {
-            setError(err?.message || 'An unexpected error occurred')
+        } catch (err: unknown) {
+            setError((err as Error)?.message || 'An unexpected error occurred')
 
         }
         setDisabled(false);

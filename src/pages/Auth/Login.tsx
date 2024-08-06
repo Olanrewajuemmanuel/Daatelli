@@ -7,9 +7,9 @@ import { routesMap } from '../../constants'
 
 function Login() {
     const [state, setState] = useState('root')
-    const [cookies, setCookies] = useCookies(['access'])
+    const [cookies] = useCookies(['access'])
 
-    let navigate = useNavigate()
+    const navigate = useNavigate()
     useEffect(() => {
         // TODO: validate token
         if (cookies.access) navigate(routesMap.feed)

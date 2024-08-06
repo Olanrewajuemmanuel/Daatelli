@@ -1,8 +1,8 @@
 export const loginUser = async (
   password: string,
-  email?: string,
-  userId?: string,
-  username?: string
+  email?: string
+  // userId?: string,
+  // username?: string
 ) => {
   let accessToken = null;
   let refreshToken = null;
