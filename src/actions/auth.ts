@@ -7,10 +7,10 @@ export const loginUser = async (
   let accessToken = null;
   let refreshToken = null;
   if (email) {
+    // mimic server failure response
     if (password !== "olanrewaju") {
-      throw new Error("Incorrect credentials");
+      return Promise.reject(Error("Incorrect credentials"));
     }
-    setTimeout(() => null, 3000); // mimic async server fn
     accessToken =
       "zE5MaDwzZyrcN7jVTiLSXJkC7R62q1gaVxIN2bZKFq2WObuBzWyPyGEYFMW2yJGu";
     refreshToken =
@@ -19,10 +19,10 @@ export const loginUser = async (
     // logic for other login types
   }
 
-  return {
+  return Promise.resolve({
     accessToken,
     refreshToken,
-  };
+  });
 };
 
 export const logoutUser = (accessToken: string) => {

@@ -38,10 +38,8 @@ function ResetPassword() {
             setFormSuccess(true)
 
         } catch (err) {
-            console.error(err);
             setError((err as Error).message || 'An unknown error occurred')
             setDisabled(false)
-
         }
     }
 

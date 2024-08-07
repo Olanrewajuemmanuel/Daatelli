@@ -2,7 +2,7 @@ import { ChangeEvent, Dispatch, FormEvent, useEffect, useState } from "react"
 import { FormData } from "../types/types";
 
 
-function RootLogin({ onLogin, setCurrentUid }: { onLogin: (email: string, password: string, rememberMe: boolean) => void, setCurrentUid: Dispatch<React.SetStateAction<string>> }) {
+function RootLogin({ onLogin, setCurrentUid }: { onLogin: (email: string, password: string, rememberMe: boolean) => Promise<void>, setCurrentUid: Dispatch<React.SetStateAction<string>> }) {
     const [disabled, setDisabled] = useState(true)
     const [error, setError] = useState('')
     const [formData, setFormData] = useState<FormData>({ email: '', password: '', rememberMe: false });
@@ -27,7 +27,7 @@ function RootLogin({ onLogin, setCurrentUid }: { onLogin: (email: string, passwo
         e.preventDefault();
         try {
             setDisabled(true) // deactivate button on requests
-            onLogin(formData.email, formData.password, formData.rememberMe as boolean)
+            await onLogin(formData.email, formData.password, formData.rememberMe as boolean)
         } catch (err: unknown) {
             setError((err as Error)?.message || 'An unexpected error occurred')
 
@@ -39,7 +39,7 @@ function RootLogin({ onLogin, setCurrentUid }: { onLogin: (email: string, passwo
     return (
 
         <form onSubmit={handleSubmit}>
-            {error || <p>{error}</p>}
+            {error && <p>{error}</p>}
             <div>
                 <label htmlFor="email">Email:</label>
                 <input type="email" name="email" placeholder="Ex: rootuser@mail.com" required onChange={handleChange}></input>

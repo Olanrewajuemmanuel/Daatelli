@@ -27,7 +27,7 @@ const researcherTypes = [
     { value: 'senior', label: 'Senior researchers' },
 ]
 
-function RegisterForm({ mode, onRegister }: { mode: RegisterType, onRegister: (email: string, password: string) => void }) {
+function RegisterForm({ mode, onRegister }: { mode: RegisterType, onRegister: (email: string, password: string) => Promise<void> }) {
     const [formData, setFormData] = useState<Partial<RegistrationData>>({
         interests: []
     })
@@ -80,15 +80,17 @@ function RegisterForm({ mode, onRegister }: { mode: RegisterType, onRegister: (e
     const handleSubmit = async (e: FormEvent, mode: RegisterType) => {
         e.preventDefault();
         // Handle member signup submission
-        setDisabled(true) // toggle disabled attr of submit button
 
         const validate = validateForm(formData as RegistrationData, mode)
+
         if (validate.length === 0) {
             // Submit form
             try {
-                await registerMember(formData as RegistrationData);
-                onRegister(formData.email as string, formData.password1 as string)
+                setDisabled(true) // toggle disabled attr of submit button
 
+                await registerMember(formData as RegistrationData);
+                await onRegister(formData.email as string, formData.password1 as string)
+                setDisabled(false)
             } catch (err: unknown) {
                 setFormErrors([{ error: (err as Error)?.message || 'An unexpected error occurred', label: '' }])
             }
@@ -96,7 +98,6 @@ function RegisterForm({ mode, onRegister }: { mode: RegisterType, onRegister: (e
             // Display errors
             setFormErrors(validate)
         }
-        setDisabled(false)
     }
     return (
         <form onSubmit={(ev) => handleSubmit(ev, mode)}>

@@ -47,7 +47,7 @@ export function validateForm(
       error: "Password is required",
       label: formData.password1,
     });
-  if (formData.password1.length < 8)
+  if (formData.password1 && formData.password1.length < 8)
     errorsArr.push({
       error: "Password should be at least 8 characters long",
       label: formData.password1,
