@@ -4,10 +4,11 @@ import CollabLogin from '../../components/CollabLogin'
 import { useCookies } from 'react-cookie'
 import { Link, useNavigate } from 'react-router-dom'
 import { routesMap } from '../../constants'
+import { loginUser } from '../../actions/auth'
 
 function Login() {
     const [state, setState] = useState('root')
-    const [cookies] = useCookies(['access'])
+    const [cookies, setCookies] = useCookies(['refresh', 'access'])
 
     const navigate = useNavigate()
     useEffect(() => {
@@ -15,6 +16,20 @@ function Login() {
         if (cookies.access) navigate(routesMap.feed)
 
     }, [cookies.access, navigate])
+
+    const handleLogin = async (email: string, password: string, rememberMe: boolean) => {
+        const response = await loginUser(password, email)
+        setCookies('access', response.accessToken, { expires: new Date(Date.now() + 3600 * 1000 * 24 * 7) })
+
+
+        // Create cookies and navigate to feed
+        if (rememberMe) {
+            // 7 days expiry time to use refresh token
+            setCookies('refresh', response.refreshToken, { expires: new Date(Date.now() + 3600 * 1000 * 24 * 7) })
+        }
+
+        return navigate(routesMap.feed, { replace: true })
+    }
     return (
         <div>
             <h1>Sign in</h1>
@@ -33,7 +48,7 @@ function Login() {
             </div>
             {/* Sign in Form */}
             <div>
-                {state === 'root' ? <RootLogin /> : <CollabLogin />}
+                {state === 'root' ? <RootLogin onLogin={handleLogin} /> : <CollabLogin />}
             </div>
             <p>Create an account <Link to={routesMap.register}>here</Link></p>
 

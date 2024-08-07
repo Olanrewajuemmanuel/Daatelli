@@ -45,7 +45,7 @@ function Register() {
         const response = await loginUser(password, email)
 
         // Store cookie and navigate to feed
-        setCookies('access', response.accessToken)
+        setCookies('access', response.accessToken, { expires: new Date(Date.now() + 3600 * 1000 * 24 * 7) })
         return navigate(routesMap.feed, { replace: true })
     }
     return (

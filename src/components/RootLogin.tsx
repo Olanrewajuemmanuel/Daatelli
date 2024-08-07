@@ -1,17 +1,11 @@
 import { FormEvent, useEffect, useState } from "react"
-import { loginUser } from "../actions/auth";
-import { useCookies } from "react-cookie";
-import { useNavigate } from "react-router-dom";
-import { routesMap } from "../constants";
 import { FormData } from "../types/types";
 
 
-function RootLogin() {
+function RootLogin({ onLogin }: { onLogin: (email: string, password: string, rememberMe: boolean) => void }) {
     const [disabled, setDisabled] = useState(true)
     const [error, setError] = useState('')
     const [formData, setFormData] = useState<FormData>({ email: '', password: '', rememberMe: false });
-    const [, setCookies] = useCookies(['refresh', 'access'])
-    const navigate = useNavigate();
 
     useEffect(() => {
         if (formData?.email && formData.password) {
@@ -27,17 +21,7 @@ function RootLogin() {
         e.preventDefault();
         try {
             setDisabled(true) // deactivate button on requests
-            const response = await loginUser(formData.password, formData.email)
-            setCookies('access', response.accessToken)
-
-
-            // Create cookies and navigate to feed
-            if (formData.rememberMe) {
-                // 7 days expiry time to use refresh token
-                setCookies('refresh', response.refreshToken, { expires: new Date(Date.now() + 3600 * 1000 * 24 * 7) })
-            }
-
-            return navigate(routesMap.feed, { replace: true })
+            await onLogin(formData.email, formData.password, formData.rememberMe as boolean)
         } catch (err: unknown) {
             setError((err as Error)?.message || 'An unexpected error occurred')
 
