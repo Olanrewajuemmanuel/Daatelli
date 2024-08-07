@@ -1,12 +1,8 @@
 import { useState } from "react"
 import { useCookies } from "react-cookie"
 import { logoutUser } from "../../actions/auth"
+import { Message } from "../../types/types"
 
-
-type Message = {
-    type: 'danger' | 'warning' | 'success',
-    message: string
-}
 
 function Feed() {
     const [cookies, , removeCookies] = useCookies(['access', 'refresh'])

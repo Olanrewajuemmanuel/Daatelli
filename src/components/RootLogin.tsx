@@ -3,13 +3,8 @@ import { loginUser } from "../actions/auth";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import { routesMap } from "../constants";
+import { FormData } from "../types/types";
 
-
-type FormData = {
-    email: string;
-    password: string;
-    rememberMe?: boolean;
-}
 
 function RootLogin() {
     const [disabled, setDisabled] = useState(true)
