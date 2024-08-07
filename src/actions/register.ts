@@ -1,7 +1,9 @@
-import { RegisterMemberData } from "../types/types";
+import { RegisterType } from "../types/enums";
+import { RegistrationData } from "../types/types";
 
 export function validateForm(
-  formData: RegisterMemberData
+  formData: RegistrationData,
+  mode: RegisterType
 ): Array<{ error: string; label: string }> {
   /**
    * Validates the form data for registering a member.
@@ -11,6 +13,20 @@ export function validateForm(
    */
 
   const errorsArr: Array<{ error: string; label: string }> = [];
+  if (mode === RegisterType.researcher) {
+    // Validate researcher type
+    if (!formData.researcherType)
+      errorsArr.push({
+        error: "Researcher type is required",
+        label: formData.researcherType,
+      });
+    // Validate institution
+    if (!formData.institution)
+      errorsArr.push({
+        error: "Institution is required",
+        label: formData.researcherType,
+      });
+  }
   // Validate name
   if (!formData.name)
     errorsArr.push({ error: "Name is required", label: formData.name });
@@ -45,7 +61,7 @@ export function validateForm(
   return errorsArr;
 }
 
-export function registerMember(validatedForm: RegisterMemberData) {
+export async function registerMember(validatedForm: RegistrationData) {
   setTimeout(() => null, 3000); // mimic server fn
 
   return Promise.resolve({

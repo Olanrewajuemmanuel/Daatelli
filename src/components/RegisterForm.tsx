@@ -4,7 +4,7 @@ import { RegisterType } from "../types/enums"
 import InfoItem from "./InfoItem"
 import Select from "react-select";
 import CreatableSelect from "react-select/creatable";
-import { RegisterMemberData } from "../types/types";
+import { RegistrationData } from "../types/types";
 import { registerMember, validateForm } from "../actions/register";
 
 
@@ -28,15 +28,24 @@ const researcherTypes = [
 ]
 
 function RegisterForm({ mode, onRegister }: { mode: RegisterType, onRegister: (email: string, password: string) => void }) {
-    const [formData, setFormData] = useState<Partial<RegisterMemberData>>({
+    const [formData, setFormData] = useState<Partial<RegistrationData>>({
         interests: []
     })
+    const [disabled, setDisabled] = useState(false);
     const [formErrors, setFormErrors] = useState<{ error: string; label: string; }[]>([])
 
 
     const handleSelectField = (option: unknown) => {
         setFormData(prev => ({
             ...prev, 'field': (option as {
+                value: string;
+                label: string;
+            }).value as string
+        }))
+    }
+    const handleSelectResearcherType = (option: unknown) => {
+        setFormData(prev => ({
+            ...prev, 'researcherType': (option as {
                 value: string;
                 label: string;
             }).value as string
@@ -70,31 +79,24 @@ function RegisterForm({ mode, onRegister }: { mode: RegisterType, onRegister: (e
 
     const handleSubmit = async (e: FormEvent, mode: RegisterType) => {
         e.preventDefault();
-        if (mode === RegisterType.member) {
-            // Handle member signup submission
+        // Handle member signup submission
+        setDisabled(true) // toggle disabled attr of submit button
 
-            const validate = validateForm(formData as RegisterMemberData)
-            if (validate.length === 0) {
-                // Submit form
-                try {
-                    await registerMember(formData as RegisterMemberData);
-                    onRegister(formData.email as string, formData.password1 as string)
+        const validate = validateForm(formData as RegistrationData, mode)
+        if (validate.length === 0) {
+            // Submit form
+            try {
+                await registerMember(formData as RegistrationData);
+                onRegister(formData.email as string, formData.password1 as string)
 
-                } catch (err: unknown) {
-                    console.error((err as Error)?.message || 'An unexpected error occurred')
-
-                }
-            } else {
-                // Display errors
-                setFormErrors(validate)
+            } catch (err: unknown) {
+                setFormErrors([{ error: (err as Error)?.message || 'An unexpected error occurred', label: '' }])
             }
-
-
-
-        } else if (mode === RegisterType.researcher) {
-            // Handle research signup submission
-            alert('TBD')
+        } else {
+            // Display errors
+            setFormErrors(validate)
         }
+        setDisabled(false)
     }
     return (
         <form onSubmit={(ev) => handleSubmit(ev, mode)}>
@@ -146,7 +148,7 @@ function RegisterForm({ mode, onRegister }: { mode: RegisterType, onRegister: (e
                             <Select options={referralOptions} defaultValue={referralOptions[0]} onChange={handleSelectRef} />
                         </div>
                         <div>
-                            <button type="submit">Submit</button>
+                            <button type="submit" disabled={disabled} className="disabled:bg-red-400">Submit</button>
                         </div>
                     </div>
                 ) : (
@@ -172,7 +174,7 @@ function RegisterForm({ mode, onRegister }: { mode: RegisterType, onRegister: (e
                         </div>
                         <div>
                             <label htmlFor="researcher-type">What type of researcher are you:<span>*</span></label>
-                            <CreatableSelect placeholder="Select..." options={researcherTypes} onChange={handleSelectField} />
+                            <CreatableSelect placeholder="Select..." options={researcherTypes} onChange={handleSelectResearcherType} />
                         </div>
                         <div>
                             <label htmlFor="field">Research field:<span>*</span></label>
@@ -196,7 +198,7 @@ function RegisterForm({ mode, onRegister }: { mode: RegisterType, onRegister: (e
                             <Select options={referralOptions} defaultValue={referralOptions[0]} onChange={handleSelectRef} />
                         </div>
                         <div>
-                            <button type="submit">Submit</button>
+                            <button type="submit" disabled={disabled} className="disabled:bg-red-400">Submit</button>
                         </div>
                     </div>
                 )

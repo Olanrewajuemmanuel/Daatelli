@@ -9,7 +9,7 @@ export type Message = {
   message: string;
 };
 
-export type RegisterMemberData = {
+export type RegistrationData = {
   name: string;
   email: string;
   field: string;
@@ -17,6 +17,9 @@ export type RegisterMemberData = {
     value: string;
     label: string;
   }[];
+  researcherType: string;
+  institution: string;
+  affiliations: string;
   refs: string;
   password1: string;
   password2: string;
