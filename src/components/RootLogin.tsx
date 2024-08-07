@@ -1,8 +1,8 @@
-import { FormEvent, useEffect, useState } from "react"
+import { ChangeEvent, Dispatch, FormEvent, useEffect, useState } from "react"
 import { FormData } from "../types/types";
 
 
-function RootLogin({ onLogin }: { onLogin: (email: string, password: string, rememberMe: boolean) => void }) {
+function RootLogin({ onLogin, setCurrentUid }: { onLogin: (email: string, password: string, rememberMe: boolean) => void, setCurrentUid: Dispatch<React.SetStateAction<string>> }) {
     const [disabled, setDisabled] = useState(true)
     const [error, setError] = useState('')
     const [formData, setFormData] = useState<FormData>({ email: '', password: '', rememberMe: false });
@@ -16,12 +16,18 @@ function RootLogin({ onLogin }: { onLogin: (email: string, password: string, rem
         }
     }, [formData?.email, formData?.password])
 
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        setFormData(prev => ({ ...prev, [name]: value }))
+        setCurrentUid(formData.email)
+    }
+
     const handleSubmit = async (e: FormEvent) => {
         // Login logic
         e.preventDefault();
         try {
             setDisabled(true) // deactivate button on requests
-            await onLogin(formData.email, formData.password, formData.rememberMe as boolean)
+            onLogin(formData.email, formData.password, formData.rememberMe as boolean)
         } catch (err: unknown) {
             setError((err as Error)?.message || 'An unexpected error occurred')
 
@@ -36,11 +42,11 @@ function RootLogin({ onLogin }: { onLogin: (email: string, password: string, rem
             {error || <p>{error}</p>}
             <div>
                 <label htmlFor="email">Email:</label>
-                <input type="email" name="email" placeholder="Ex: rootuser@mail.com" required onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}></input>
+                <input type="email" name="email" placeholder="Ex: rootuser@mail.com" required onChange={handleChange}></input>
             </div>
             <div>
                 <label htmlFor="password">Password:</label>
-                <input type="password" name="password" placeholder="Password" required onChange={(e) => setFormData(prev => ({ ...prev, password: e.target.value }))}></input>
+                <input type="password" name="password" placeholder="Password" required onChange={handleChange}></input>
             </div>
             <div>
                 <input type="checkbox" name="rememberMe" checked={formData.rememberMe} onChange={e => setFormData(prev => ({ ...prev, rememberMe: e.target.checked }))}></input> Remember this device

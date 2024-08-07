@@ -40,7 +40,7 @@ function RegisterForm({ mode, onRegister }: { mode: RegisterType, onRegister: (e
             ...prev, 'field': (option as {
                 value: string;
                 label: string;
-            }).value as string
+            }).value
         }))
     }
     const handleSelectResearcherType = (option: unknown) => {
@@ -48,7 +48,7 @@ function RegisterForm({ mode, onRegister }: { mode: RegisterType, onRegister: (e
             ...prev, 'researcherType': (option as {
                 value: string;
                 label: string;
-            }).value as string
+            }).value
         }))
     }
     const handleSelectRef = (option: unknown) => {
@@ -56,7 +56,7 @@ function RegisterForm({ mode, onRegister }: { mode: RegisterType, onRegister: (e
             ...prev, 'refs': (option as {
                 value: string;
                 label: string;
-            }).value as string
+            }).value
         }))
     }
     const handleSelectMultiple = (options: unknown) => {
@@ -73,7 +73,7 @@ function RegisterForm({ mode, onRegister }: { mode: RegisterType, onRegister: (e
         if (type === 'checkbox') {
             setFormData(prev => ({ ...prev, [name]: checked }))
         }
-        setFormData(prev => ({ ...prev, [name]: value as string }))
+        setFormData(prev => ({ ...prev, [name]: value }))
 
     }
 

@@ -10,6 +10,8 @@ import { routesMap } from "./constants";
 import { CookiesProvider } from "react-cookie";
 import Feed from "./pages/Feed";
 import ProtectedRoute from "./components/ProtectedRoute";
+import ForgotPassword from "./pages/Auth/ForgotPassword";
+import ResetPassword from "./pages/Auth/ResetPassword";
 
 const routes = [
   {
@@ -24,6 +26,14 @@ const routes = [
   {
     path: routesMap.register,
     element: <Register />,
+  },
+  {
+    path: routesMap.forgotPassword,
+    element: <ForgotPassword />,
+  },
+  {
+    path: routesMap.resetPassword,
+    element: <ResetPassword />,
   },
   {
     path: routesMap.feed,

@@ -9,6 +9,7 @@ import { loginUser } from '../../actions/auth'
 function Login() {
     const [state, setState] = useState('root')
     const [cookies, setCookies] = useCookies(['refresh', 'access'])
+    const [uid, setUid] = useState('')
 
     const navigate = useNavigate()
     useEffect(() => {
@@ -30,6 +31,7 @@ function Login() {
 
         return navigate(routesMap.feed, { replace: true })
     }
+
     return (
         <div>
             <h1>Sign in</h1>
@@ -48,8 +50,9 @@ function Login() {
             </div>
             {/* Sign in Form */}
             <div>
-                {state === 'root' ? <RootLogin onLogin={handleLogin} /> : <CollabLogin />}
+                {state === 'root' ? <RootLogin onLogin={handleLogin} setCurrentUid={setUid} /> : <CollabLogin />}
             </div>
+            <Link to={routesMap.forgotPassword + `?uid=${uid}`}>Forgot password?</Link>
             <p>Create an account <Link to={routesMap.register}>here</Link></p>
 
         </div>

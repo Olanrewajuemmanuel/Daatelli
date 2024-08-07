@@ -30,3 +30,22 @@ export const logoutUser = (accessToken: string) => {
   if (!accessToken) return false;
   return true;
 };
+
+export const sendResetPasswordRequest = async (uid: string) => {
+  setTimeout(() => uid, 3000); // mimic async server fn
+  return Promise.resolve({
+    message:
+      "Instructions to reset your password has been sent to the provided email",
+  });
+};
+
+export const sendResetPasswordConfirmation = async (
+  token: string,
+  oldPassword: string,
+  newPassword: string
+) => {
+  setTimeout(() => ({ token, oldPassword, newPassword }), 3000); // mimic async server fn
+  return Promise.resolve({
+    message: "Your password has been successfully changed",
+  });
+};
