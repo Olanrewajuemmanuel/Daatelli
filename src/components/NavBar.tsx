@@ -27,7 +27,7 @@ function NavBar({ onMessagesUpdate }: {
                 <li><a href="#">(AI icon)DataInsights</a></li>
             </ul>
             <div className="w-3/5 flex">
-                <input type="text" name="search" placeholder="Search for top researchers, communities and latest trends" className="w-full" />
+                <input type="text" name="search" placeholder="Search for top researchers, communities, topics and latest trends..." className="w-full" />
                 <button>Search</button>
             </div>
             <div>
