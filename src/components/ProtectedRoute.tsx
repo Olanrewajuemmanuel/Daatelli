@@ -23,7 +23,7 @@ const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
         setLoading(false)
     }, 5000) // mimic token validation
 
-    if (loading) return 'Loading...';
+    if (loading) return <p>Loading...</p>
     return children
 };
 

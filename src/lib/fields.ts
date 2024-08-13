@@ -1,4 +1,4 @@
-export default [
+const fields = [
   "Air pollution",
   "Water quality",
   "Soil contamination",
@@ -92,3 +92,5 @@ export default [
   "Climate change mitigation strategies",
   "Environmental health research methods",
 ];
+
+export default fields;

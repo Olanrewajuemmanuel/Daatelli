@@ -5,7 +5,8 @@ export type FormData = {
 };
 
 export type Message = {
-  type: "danger" | "warning" | "success";
+  id: string;
+  type?: "danger" | "warning" | "success";
   message: string;
 };
 
