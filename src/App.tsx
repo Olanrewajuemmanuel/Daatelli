@@ -12,6 +12,7 @@ import Feed from "./pages/Feed";
 import ProtectedRoute from "./components/ProtectedRoute";
 import ForgotPassword from "./pages/Auth/ForgotPassword";
 import ResetPassword from "./pages/Auth/ResetPassword";
+import AddFinding from "./pages/Findings/AddFinding";
 
 const routes = [
   {
@@ -38,6 +39,10 @@ const routes = [
   {
     path: routesMap.feed,
     element: <ProtectedRoute><Feed /></ProtectedRoute>,
+  },
+  {
+    path: routesMap.addFindings,
+    element: <ProtectedRoute><AddFinding /></ProtectedRoute>,
   },
 ];
 

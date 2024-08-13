@@ -21,7 +21,7 @@ const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
     setTimeout(() => {
         setAuth(true)
         setLoading(false)
-    }, 5000) // mimic token validation
+    }, 2000) // mimic token validation
 
     if (loading) return <p>Loading...</p>
     return children
