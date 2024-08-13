@@ -1,17 +1,15 @@
-import { useReducer } from "react";
+import { useContext, useReducer } from "react";
 import MessagesBanner from "../../components/MessagesBanner"
 import NavBar from "../../components/NavBar"
 import { bannerMessages, bannerMessagesReducer } from "../../reducers";
 
 
-
 function Feed() {
     const [messages, dispatch] = useReducer(bannerMessagesReducer, bannerMessages);
     return (
-
         <div>
             <MessagesBanner messages={messages} onUpdate={dispatch} />
-            <NavBar />
+            <NavBar onMessagesUpdate={dispatch} />
             <main>
                 <div>Sidebar
                     <aside>Ads</aside>
