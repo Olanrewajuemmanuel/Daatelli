@@ -1,3 +1,5 @@
+import { RegisterType } from "./enums";
+
 export type FormData = {
   email: string;
   password: string;
@@ -24,4 +26,13 @@ export type RegistrationData = {
   refs: string;
   password1: string;
   password2: string;
+};
+
+export type User = {
+  id: string;
+  fullName: string;
+  role: RegisterType;
+  email: string;
+  onBoarded: boolean;
+  // ...
 };
