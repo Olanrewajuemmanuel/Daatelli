@@ -7,3 +7,7 @@ export const routesMap = {
   resetPassword: "/auth/reset-password",
   addFindings: "/findings/create",
 };
+
+export const globals = {
+  appName: "Air-data",
+};

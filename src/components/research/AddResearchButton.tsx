@@ -1,6 +1,5 @@
 import { useContext } from "react";
 import { UserContext } from "../../contexts";
-import { RegisterType } from "../../types/enums";
 
 
 function AddResearchButton({ onSetScreenState }: { onSetScreenState: () => void }) {

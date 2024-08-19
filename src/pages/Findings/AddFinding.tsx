@@ -1,4 +1,5 @@
 import { useSearchParams } from "react-router-dom"
+import DocumentsFlow from "../../components/step-form/DocumentsFlow";
 
 function AddFinding() {
     const [searchParams, setSearchParams] = useSearchParams()
@@ -19,7 +20,7 @@ function AddFinding() {
             break;
         default:
             // Display structured data view as fallback (PPT, pdf, docs, csv etc)
-            display = <div>Document</div>
+            display = <DocumentsFlow />
             break;
     }
 

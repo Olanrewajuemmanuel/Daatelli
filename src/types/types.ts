@@ -1,4 +1,4 @@
-import { RegisterType } from "./enums";
+import { FindingsBadge, RegisterType } from "./enums";
 
 export type FormData = {
   email: string;
@@ -35,4 +35,23 @@ export type User = {
   email: string;
   onBoarded: boolean;
   // ...
+};
+
+export type SuggestionItem = {
+  id: string;
+  avatarUrl?: string;
+  name: string;
+};
+
+export type Citation = {
+  id: string;
+  name: string;
+  link: string;
+};
+
+export type Findings = {
+  id: string;
+  badge: FindingsBadge;
+  text: string;
+  citations?: Citation[];
 };
