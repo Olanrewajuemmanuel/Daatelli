@@ -40,6 +40,7 @@ export type User = {
   role: RegisterType;
   email: string;
   onBoarded: boolean;
+  avatarUrl: string;
   // ...
 };
 

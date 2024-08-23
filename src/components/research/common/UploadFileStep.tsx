@@ -18,7 +18,7 @@ function UploadFileStep() {
             <div>
                 <input {...register('privateCopy')} type="checkbox" name="privateCopy" />
                 <label htmlFor="privateCopy">Upload as a private copy <InfoItem message="Private copies are only visible to your account and can be viewed in this Finding details once created." /></label>
-                {errors && <InputError message={errors.files?.message?.toString()} />}
+                {errors && <InputError message={errors.privateCopy?.message?.toString()} />}
             </div>
             <SelectMultipleResearchers />
             <div>

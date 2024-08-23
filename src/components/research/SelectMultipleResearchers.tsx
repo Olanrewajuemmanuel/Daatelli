@@ -1,15 +1,13 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import ResearcherSuggestionItem from "./ResearcherSuggestionItem";
 import InfoItem from "../InfoItem";
 import { SuggestionItem, UploadFileSchemaType } from "../../types/types";
 import AuthorsDragAndDrop from "./AuthorsDragAndDrop";
 import { useFormContext } from "react-hook-form";
 import InputError from "../InputError";
+import { useCookies } from "react-cookie";
+import { getUsers } from "../../actions/user";
 
-const predefinedNames: SuggestionItem[] = [
-    { name: 'Alice', id: 'asca12', avatarUrl: '' },
-    { name: 'Bob', id: 'as12', avatarUrl: 'https://c5.rgstatic.net/m/41010379691719/images/icons/svgicons/publication-creation-grey.svg' },
-];
 
 function SelectMultipleResearchers() {
     const { setValue, formState: { errors } } = useFormContext<UploadFileSchemaType>();
@@ -17,7 +15,26 @@ function SelectMultipleResearchers() {
     const [researcher, setResearcher] = useState('');
     const [suggestions, setSuggestions] = useState<SuggestionItem[]>([]);
     const [selectedNames, setSelectedNames] = useState<SuggestionItem[]>([]);
+    const [cookies] = useCookies(['access'])
     let timeout: NodeJS.Timeout | undefined;
+
+    useEffect(() => {
+        async function getUsersProfiles() {
+            // pre-fetch users profiles
+            try {
+                const response = await getUsers(cookies.access);
+                setSuggestions(response.map(user => ({
+                    id: user.id,
+                    name: user.fullName,
+                    avatarUrl: user.avatarUrl,
+                })))
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+        getUsersProfiles();
+    }, [researcher])
 
     const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         const input = e.target.value;
@@ -28,8 +45,8 @@ function SelectMultipleResearchers() {
         timeout = setTimeout(() => {
             if (input && input.trim() !== "") {
                 // fetch list of researchers and update state
-                const filteredSuggestions = predefinedNames.filter(name =>
-                    name.name.toLowerCase().includes(input.toLowerCase())
+                const filteredSuggestions = suggestions.filter(suggestion =>
+                    suggestion.name.toLowerCase().includes(input.toLowerCase())
                 );
 
                 if (filteredSuggestions.length <= 0) {
@@ -38,8 +55,6 @@ function SelectMultipleResearchers() {
                 } else {
                     setSuggestions([...filteredSuggestions]);
                 }
-            } else {
-                setSuggestions([])
             }
         }, 500) // debounce typing
     }
@@ -51,7 +66,8 @@ function SelectMultipleResearchers() {
 
         setValue("researchers", [...selectedNames, selectedResearcher], { shouldValidate: true, })
         setResearcher('')
-        setSuggestions([])
+        // Remove selected researcher from suggestions
+        setSuggestions(prev => prev.filter(suggestion => suggestion.name !== selectedResearcher.name))
     }
     const handleDeletion = (id: string) => {
         const filteredNames = selectedNames.filter(selectedName => selectedName.id !== id)
