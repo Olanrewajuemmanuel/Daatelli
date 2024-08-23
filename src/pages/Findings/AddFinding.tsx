@@ -1,10 +1,16 @@
-import { useSearchParams } from "react-router-dom"
+import { useNavigate, useSearchParams } from "react-router-dom"
 import DocumentsFlow from "../../components/step-form/DocumentsFlow";
+import { routesMap } from "../../constants";
 
 function AddFinding() {
-    const [searchParams, setSearchParams] = useSearchParams()
+    const [searchParams] = useSearchParams()
+    const navigate = useNavigate()
 
     let display = null;
+
+    const handleCreationNavigation = (findingId: string) => {
+        navigate(`${routesMap.viewFinding}/${findingId}`)
+    }
 
     switch (searchParams.get('type')) {
         case 'code':
@@ -20,7 +26,7 @@ function AddFinding() {
             break;
         default:
             // Display structured data view as fallback (PPT, pdf, docs, csv etc)
-            display = <DocumentsFlow />
+            display = <DocumentsFlow onCreateFinding={handleCreationNavigation} />
             break;
     }
 

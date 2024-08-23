@@ -1,11 +1,14 @@
 import { useCookies } from "react-cookie"
 import { logoutUser } from "../actions/auth"
-import { useContext } from "react"
-
+import { Message } from "../types/types";
 
 
 function NavBar({ onMessagesUpdate }: {
-    onMessagesUpdate: React.Dispatch<any>,
+    onMessagesUpdate: React.Dispatch<{
+        type: "ADD" | "DELETE" | "DELETE_ALL";
+        message?: Message;
+        id?: string;
+    }>,
 }) {
     const [cookies, , removeCookies] = useCookies(['access', 'refresh'])
 

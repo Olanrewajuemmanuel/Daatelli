@@ -1,4 +1,10 @@
 import { FindingsBadge, RegisterType } from "./enums";
+import { InferType } from "yup";
+import {
+  attestationSchema,
+  uploadFileSchema,
+  uploadFindingsSchema,
+} from "../validations/schema/commons";
 
 export type FormData = {
   email: string;
@@ -55,3 +61,11 @@ export type Findings = {
   text: string;
   citations?: Citation[];
 };
+
+export type UploadFileSchemaType = InferType<typeof uploadFileSchema>;
+export type UploadFindingSchemaType = InferType<typeof uploadFindingsSchema>;
+export type AttestationSchemaType = InferType<typeof attestationSchema>;
+export type DocumentFormSchemaType =
+  | UploadFileSchemaType
+  | UploadFindingSchemaType
+  | AttestationSchemaType;

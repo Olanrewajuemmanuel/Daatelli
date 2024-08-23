@@ -18,7 +18,7 @@ import ScreenUpdateDisplay from "../../components/ScreenUpdateDisplay";
 function Feed() {
     const [messages, dispatch] = useReducer(bannerMessagesReducer, bannerMessages);
     const [cookies] = useCookies(['access'])
-    const [user, setUser] = useState<User>()
+    const [user, setUser] = useState<User | null>()
     const [clickMode, setClickMode] = useState<RegisterType | null>(null); // Controls the options on screen when 'share a finding' button is clicked
     const [displayMode, setDisplayMode] = useState(false)
 
@@ -37,7 +37,8 @@ function Feed() {
     }, [])
 
     const handleScreenState = () => {
-        setClickMode(user?.role!)
+        if (!user) return;
+        setClickMode(user?.role)
         setDisplayMode(true);
     }
 

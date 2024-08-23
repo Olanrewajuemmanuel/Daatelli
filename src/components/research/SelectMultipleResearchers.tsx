@@ -1,8 +1,10 @@
 import { ChangeEvent, useState } from "react";
 import ResearcherSuggestionItem from "./ResearcherSuggestionItem";
 import InfoItem from "../InfoItem";
-import { SuggestionItem } from "../../types/types";
+import { SuggestionItem, UploadFileSchemaType } from "../../types/types";
 import AuthorsDragAndDrop from "./AuthorsDragAndDrop";
+import { useFormContext } from "react-hook-form";
+import InputError from "../InputError";
 
 const predefinedNames: SuggestionItem[] = [
     { name: 'Alice', id: 'asca12', avatarUrl: '' },
@@ -10,6 +12,8 @@ const predefinedNames: SuggestionItem[] = [
 ];
 
 function SelectMultipleResearchers() {
+    const { setValue, formState: { errors } } = useFormContext<UploadFileSchemaType>();
+
     const [researcher, setResearcher] = useState('');
     const [suggestions, setSuggestions] = useState<SuggestionItem[]>([]);
     const [selectedNames, setSelectedNames] = useState<SuggestionItem[]>([]);
@@ -22,7 +26,7 @@ function SelectMultipleResearchers() {
 
         clearTimeout(timeout);
         timeout = setTimeout(() => {
-            if (input) {
+            if (input && input.trim() !== "") {
                 // fetch list of researchers and update state
                 const filteredSuggestions = predefinedNames.filter(name =>
                     name.name.toLowerCase().includes(input.toLowerCase())
@@ -44,11 +48,14 @@ function SelectMultipleResearchers() {
         if (selectedNames.find(name => name.name === selectedResearcher.name)) return
 
         setSelectedNames([...selectedNames, selectedResearcher])
+
+        setValue("researchers", [...selectedNames, selectedResearcher], { shouldValidate: true, })
         setResearcher('')
         setSuggestions([])
     }
     const handleDeletion = (id: string) => {
         const filteredNames = selectedNames.filter(selectedName => selectedName.id !== id)
+        setValue("researchers", filteredNames, { shouldValidate: true, })
         setSelectedNames(filteredNames)
     }
 
@@ -57,13 +64,12 @@ function SelectMultipleResearchers() {
             <label htmlFor="researchers">Add Authors:<InfoItem message="Arrange authors in order of relevance from highest (first author) to least relevant. Drag and drop names to re-order." /></label>
             <div id="">
                 <AuthorsDragAndDrop selectedNames={selectedNames} handleDeletion={handleDeletion} onDrag={setSelectedNames} />
-                <textarea name="researchers" value={researcher} onChange={handleChange}>
-
-                </textarea>
+                <textarea name="researchers" value={researcher} onChange={handleChange}></textarea>
+                {errors && <InputError message={errors.researchers?.message?.toString()} />}
             </div>
-            <p>{suggestions.map(suggestion =>
+            <div>{suggestions.map(suggestion =>
                 <ResearcherSuggestionItem suggestion={suggestion} onClickSuggestion={handleAddition} key={suggestion.id} />
-            )}</p>
+            )}</div>
         </div>
     )
 }

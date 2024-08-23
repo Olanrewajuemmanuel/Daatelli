@@ -17,7 +17,7 @@ function Attestation() {
             </p>
             <p>
                 {/* Non-infringement */}
-                4. The research content does not violate or infringe upon any third party's intellectual property rights, including but not limited to copyrights, patents, trademarks, or proprietary rights. I have properly cited all sources and adhered to all applicable copyright and citation standards.
+                4. The research content does not violate or infringe upon any third party&apos;s intellectual property rights, including but not limited to copyrights, patents, trademarks, or proprietary rights. I have properly cited all sources and adhered to all applicable copyright and citation standards.
             </p>
             <p>
                 {/* Local laws compliance */}
@@ -31,7 +31,7 @@ function Attestation() {
             </p>
             <p>
                 {/* Remove content violation */}
-                8. I acknowledge and agree that {globals.appName} retains the exclusive right to remove, disable, or restrict access to any content that, in its sole discretion, violates the platform's terms of service, community guidelines, or any applicable laws and regulations. This includes, but is not limited to, content that is found to be infringing, unethical, defamatory, misleading, or otherwise harmful. I understand that such actions may be taken without prior notice to me.
+                8. I acknowledge and agree that {globals.appName} retains the exclusive right to remove, disable, or restrict access to any content that, in its sole discretion, violates the platform&apos;s terms of service, community guidelines, or any applicable laws and regulations. This includes, but is not limited to, content that is found to be infringing, unethical, defamatory, misleading, or otherwise harmful. I understand that such actions may be taken without prior notice to me.
             </p>
             <p>
                 9. I confirm that I am at least 18 years old (the age required to upload content as publicised in the privacy policy) or have the consent of a parent or legal guardian to upload content to this platform. If I am under 18, I will ensure that my parent or legal guardian has reviewed and agreed to these terms on my behalf.

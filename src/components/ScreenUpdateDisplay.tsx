@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { RegisterType } from "../types/enums"
 import ResearchTypes from "./research/ResearchTypes";
 import Modal from "./Modal";

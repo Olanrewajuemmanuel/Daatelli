@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 function Modal({ toggleDisplay }: { toggleDisplay: React.Dispatch<React.SetStateAction<boolean>> }) {
     return (
         <div>Modal

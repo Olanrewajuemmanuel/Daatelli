@@ -1,10 +1,12 @@
 import { DragDropContext, Draggable, DropResult } from "react-beautiful-dnd";
 import DroppableWrapper from "../DroppableWrapper";
-import { Findings } from "../../types/types";
+import { Findings, UploadFindingSchemaType } from "../../types/types";
 import CitationsList from "./CitationsList";
 import { FindingsBadge } from "../../types/enums";
+import { useFormContext } from "react-hook-form";
 
 function FindingsDragAndDrop({ selectedFindings, setFindings }: { selectedFindings: Findings[], setFindings: React.Dispatch<React.SetStateAction<Findings[]>> }) {
+  const { setValue, } = useFormContext<UploadFindingSchemaType>();
 
   const handleDragEnd = (result: DropResult) => {
     if (!result.destination) return;
@@ -19,6 +21,7 @@ function FindingsDragAndDrop({ selectedFindings, setFindings }: { selectedFindin
 
   function handleDeletion(id: string): void {
     const newFindings = selectedFindings.filter(finding => finding.id !== id);
+    setValue("findings", newFindings)
     setFindings(newFindings)
   }
 

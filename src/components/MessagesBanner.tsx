@@ -1,7 +1,11 @@
 import { Message } from "../types/types"
 
 function MessagesBanner({ onUpdate, messages }: {
-  onUpdate: React.Dispatch<any>, messages: Message[]
+  onUpdate: React.Dispatch<{
+    type: "ADD" | "DELETE" | "DELETE_ALL";
+    message?: Message;
+    id?: string;
+  }>, messages: Message[]
 }) {
 
   return (

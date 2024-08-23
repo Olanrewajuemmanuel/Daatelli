@@ -1,45 +1,85 @@
-import CreatableSelect from "react-select/creatable"
-import InfoItem from "../InfoItem"
-import FindingsFormElement from "../research/FindingsFormElement"
-import SelectMultipleResearchers from "../research/SelectMultipleResearchers"
-import StepForm from "./StepForm"
+import { useEffect, useState } from "react";
+import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { DocumentFormSchemaType, User } from "../../types/types";
+import { attestationSchema, createUploadFileSchema, uploadFindingsSchema } from "../../validations/schema/commons";
+import UploadFileStep from "../research/common/UploadFileStep";
+import UploadFindingsStep from "../research/common/UploadFindingsStep";
+import { ObjectSchema } from "yup";
+import AttestationStep from "../research/common/AttestationStep";
+import { getUserProfile } from "../../actions/user";
+import { useCookies } from "react-cookie";
+import { createFinding } from "../../actions/findings";
 
 
-const child1 = <div>
-    <div>
-        <input type="file" name="upload" multiple />
-        <label htmlFor="upload">Upload files (max. 200MB total for a max of 10 files) <InfoItem message="Upload PDFs, CSVs, Excel sheets or docx files. By uploading each file, you confirm that you have reviewed and verified each file. You also agree to allow Air-data to extract from each file any data, text snippets, tables, graphs, images, captions and metadata as applicable." /></label>
-    </div>
-    <SelectMultipleResearchers />
-    <div>
-        <label htmlFor="authorLink">Add a DOI or a link to your article <InfoItem message="Add links to an external site if the article belongs to an online journal or is available online. Kindly ensure links submitted are authentic, credible and not expired" /></label>
-        <input type="text" name="authorLink" />
-    </div>
-</div>
-
-const child2 = <div>
-    <div>
-        <label htmlFor="abstract">Abstract: </label>
-        <textarea name="abstract" rows={5} />
-    </div>
-    <div>
-        <FindingsFormElement />
-    </div>
-    <div>
-        <label htmlFor="researchField">Domain of research: </label>
-        <input type="text" name="researchField" />
-    </div>
-    <div>
-        <label htmlFor="tags">Tags: </label>
-        <CreatableSelect name="tags" value={[]} isMulti />
-    </div>
-</div>
+function DocumentsFlow({ onCreateFinding }: { onCreateFinding: (findingId: string) => void }) {
+    const [step, setStep] = useState(1);
+    const [user, setUser] = useState<User>()
+    const [cookies] = useCookies(['access'])
 
 
-function DocumentsFlow() {
+    useEffect(() => {
+        const getUserData = async () => {
+            try {
+                const user = await getUserProfile(cookies.access);
+                setUser(user);
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        getUserData();
+
+    }, [])
+
+    const getSchema = (step: number): ObjectSchema<DocumentFormSchemaType> => {
+        switch (step) {
+            case 1:
+                return createUploadFileSchema(user?.fullName);
+            case 2:
+                return uploadFindingsSchema;
+            default:
+                return attestationSchema;
+        }
+    };
+
+    const methods = useForm({
+        resolver: yupResolver(getSchema(step)),
+    });
+
+    const onSubmit: SubmitHandler<DocumentFormSchemaType> = async (data) => {
+        if (step < 3) {
+            setStep(step + 1);
+        } else {
+            // Submit data to the server and redirect to the finding details page
+            return new Promise((resolve) => {
+                resolve(createFinding(data, cookies.access))
+
+            }).then(data => {
+                if ((data as { id: string }).id)
+                    onCreateFinding((data as { id: string }).id)
+            }).catch(error => methods.setError("root", { type: error.message }))
+        }
+    };
+
     return (
-        <StepForm noOfSteps={2} child1={child1} child2={child2} />
-    )
-}
+        <FormProvider {...methods}>
+            <form onSubmit={methods.handleSubmit(onSubmit)}>
+                {methods.formState.errors.root?.message}
+                {step === 1 && <UploadFileStep />}
+                {step === 2 && <UploadFindingsStep />}
+                {step === 3 &&
+                    // Attestation as last step
+                    <AttestationStep />}
+
+                <div>
+                    <button type="submit" disabled={step === 3 && (!methods.formState.isDirty || !methods.formState.isValid || methods.formState.isSubmitting)} className="disabled:text-slate-500">
+                        {step === 3 ? (methods.formState.isSubmitting ? "Submitting" : "Submit") : "Next"}
+                    </button>
+                </div>
+            </form>
+        </FormProvider>
+    );
+};
 
 export default DocumentsFlow
