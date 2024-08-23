@@ -5,9 +5,16 @@ import { Controller, useFormContext } from "react-hook-form";
 
 
 const exampleTags = [
-    { value: 'research', label: 'Research' },
-    { value: 'hot', label: 'Hot topic' },
-    { value: 'novel', label: 'New finding' },
+    {
+        label: 'Popular tags',
+        options: [
+            { value: 'research', label: 'Research' },
+            { value: 'hot', label: 'Hot topic' },
+            { value: 'novel', label: 'New finding' },
+        ]
+    },
+    { value: 'outlier', label: 'Outlier finding' }
+
 ]
 function UploadFindingsStep() {
     const { register, control, formState: { errors } } = useFormContext<UploadFindingSchemaType>();
@@ -29,7 +36,7 @@ function UploadFindingsStep() {
             <div>
                 <label htmlFor="tags">Tags: </label>
                 <Controller control={control} name="tags" render={({ field }) =>
-                    <CreatableSelect {...field} options={exampleTags} onChange={field.onChange} isMulti />
+                    <CreatableSelect {...field} options={exampleTags} onChange={field.onChange} placeholder="Add tags..." isMulti />
                 } />
 
                 {errors && <p className="text-red-500">{errors.tags?.message}</p>}
