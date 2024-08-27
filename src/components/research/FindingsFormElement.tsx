@@ -8,6 +8,7 @@ import { FindingsBadge } from "../../types/enums"
 import AddCitations from "./AddCitations"
 import { useFormContext } from "react-hook-form"
 import InputError from "../InputError"
+import { idGenerator } from "../../lib/utils"
 
 const badgesOptions = [
     { 'label': 'Significant/Expected outcome', value: FindingsBadge.significant },
@@ -39,7 +40,7 @@ function FindingsFormElement() {
 
     async function handleAddition(): Promise<void> {
         const newFinding: Findings = {
-            id: Math.random().toFixed(2).toString(),
+            id: idGenerator,
             badge: findingsBadge,
             text: findingsText,
             citations: findingsCitation,

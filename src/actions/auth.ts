@@ -1,20 +1,27 @@
+import { serverRoutes } from "../constants";
+import { LoginResponse } from "../types/types";
+import { axiosPublicClient } from "./config";
+
 export const loginUser = async (
   password: string,
-  email?: string
-  // userId?: string,
-  // username?: string
+  email?: string,
+  userId?: string,
+  username?: string
 ) => {
+  if (!email && !username && !userId) {
+    return Promise.reject(Error("UID not provided"));
+  }
   let accessToken = null;
   let refreshToken = null;
   if (email) {
-    // mimic server failure response
-    if (password !== "olanrewaju") {
-      return Promise.reject(Error("Incorrect credentials"));
+    try {
+      const response = await axiosPublicClient.post(serverRoutes.login);
+      const data: LoginResponse = await response.data;
+      accessToken = data.accessToken;
+      refreshToken = data.refreshToken;
+    } catch (err) {
+      return Promise.reject((err as Error) || "An unexpected error occurred");
     }
-    accessToken =
-      "zE5MaDwzZyrcN7jVTiLSXJkC7R62q1gaVxIN2bZKFq2WObuBzWyPyGEYFMW2yJGu";
-    refreshToken =
-      "E5MaDwzZyrcN7jVTiLSXJkC7R62q1gaVxIN2bZObuBzWycdcszvACAPyGEYFMW2yJGu";
   } else {
     // logic for other login types
   }
@@ -25,10 +32,14 @@ export const loginUser = async (
   });
 };
 
-export const logoutUser = (accessToken: string) => {
-  // mimic server logout logic
-  if (!accessToken) return false;
-  return true;
+export const logoutUser = async (accessToken: string) => {
+  try {
+    return await axiosPublicClient.post(serverRoutes.logout, "", {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    });
+  } catch (err) {
+    return Promise.reject((err as Error) || "An unexpected error occurred");
+  }
 };
 
 export const sendResetPasswordRequest = async (uid: string) => {

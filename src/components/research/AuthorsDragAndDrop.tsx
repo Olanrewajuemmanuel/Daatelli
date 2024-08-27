@@ -34,7 +34,7 @@ function AuthorsDragAndDrop({ selectedNames, handleDeletion, onDrag }: { selecte
                       <path strokeLinecap="round" strokeLinejoin="round" d="M4.499 8.248h15m-15 7.501h15" />
                     </svg>
                     <img src={name?.avatarUrl} alt="" />
-                    {name.name}
+                    {name.name[0].toLocaleUpperCase() + name.name.slice(1)}
                     <button type="button" onClick={() => handleDeletion(name.id)}>&times;</button>
                   </li>
                 )}

@@ -1,5 +1,7 @@
+import { serverRoutes } from "../constants";
 import { RegisterType } from "../types/enums";
 import { RegistrationData } from "../types/types";
+import { axiosPublicClient } from "./config";
 
 export function validateForm(
   formData: RegistrationData,
@@ -62,11 +64,15 @@ export function validateForm(
 }
 
 export async function registerMember(validatedForm: RegistrationData) {
-  setTimeout(() => null, 3000); // mimic server fn
-
-  return Promise.resolve({
-    id: "2",
-    name: validatedForm.name,
-    email: validatedForm.email,
-  });
+  try {
+    const response = await axiosPublicClient.post(
+      serverRoutes.register,
+      validatedForm
+    );
+    return await response.data;
+  } catch (err) {
+    return Promise.reject(
+      (err as Error) || Error("An unexpected error occurred")
+    );
+  }
 }

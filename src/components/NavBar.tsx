@@ -1,6 +1,7 @@
 import { useCookies } from "react-cookie"
 import { logoutUser } from "../actions/auth"
 import { Message } from "../types/types";
+import { idGenerator } from "../lib/utils";
 
 
 function NavBar({ onMessagesUpdate }: {
@@ -12,13 +13,14 @@ function NavBar({ onMessagesUpdate }: {
 }) {
     const [cookies, , removeCookies] = useCookies(['access', 'refresh'])
 
-    const handleLogout = () => {
-        if (logoutUser(cookies.access)) {
-            removeCookies('access')
-            removeCookies('refresh')
+    const handleLogout = async () => {
+        const response = await logoutUser(cookies.access);
+        if (response.status === 200) {
+            removeCookies("access")
+            removeCookies("refresh")
             return;
         }
-        onMessagesUpdate({ type: 'ADD', message: { id: Math.random().toString(), message: 'An error occurred while signing you out. Try again later.', type: 'danger' } })
+        onMessagesUpdate({ type: 'ADD', message: { id: idGenerator, message: 'An error occurred while signing you out. Try again later.', type: 'warning' } })
     }
 
 

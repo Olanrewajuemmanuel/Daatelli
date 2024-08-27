@@ -70,3 +70,8 @@ export type DocumentFormSchemaType =
   | UploadFileSchemaType
   | UploadFindingSchemaType
   | AttestationSchemaType;
+
+export type LoginResponse = {
+  accessToken: string;
+  refreshToken: string;
+};
