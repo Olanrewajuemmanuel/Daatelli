@@ -7,10 +7,12 @@ import { useFormContext } from "react-hook-form";
 import InputError from "../InputError";
 import { useCookies } from "react-cookie";
 import { getUsers } from "../../actions/user";
+import { idGenerator } from "../../lib/utils";
 
 
 function SelectMultipleResearchers() {
-    const { setValue, formState: { errors } } = useFormContext<UploadFileSchemaType>();
+    const { setValue, formState: { errors }, setError } = useFormContext<UploadFileSchemaType>();
+    const [loading, setLoading] = useState(true);
 
     const [researcher, setResearcher] = useState('');
     const [suggestions, setSuggestions] = useState<SuggestionItem[]>([]);
@@ -23,13 +25,19 @@ function SelectMultipleResearchers() {
             // pre-fetch users profiles
             try {
                 const response = await getUsers(cookies.access);
-                setSuggestions(response.map(user => ({
+
+                setSuggestions(response.map((user: { id: any; fullName: any; avatarUrl: any; }) => ({
                     id: user.id,
                     name: user.fullName,
                     avatarUrl: user.avatarUrl,
                 })))
+
             } catch (error) {
                 console.error(error);
+                setError("root", { message: (error as Error).message })
+                setTimeout(() => setError("root", { message: (error as Error).message }))
+            } finally {
+                setLoading(false)
             }
         }
 
@@ -51,7 +59,7 @@ function SelectMultipleResearchers() {
 
                 if (filteredSuggestions.length <= 0) {
                     // Display input as fallback if there are no suggestions
-                    setSuggestions([{ id: Math.random().toString(), name: input }])
+                    setSuggestions([{ id: idGenerator, name: input }])
                 } else {
                     setSuggestions([...filteredSuggestions]);
                 }
@@ -83,7 +91,7 @@ function SelectMultipleResearchers() {
                 <textarea name="researchers" value={researcher} onChange={handleChange}></textarea>
                 {errors && <InputError message={errors.researchers?.message?.toString()} />}
             </div>
-            <div>{suggestions.map(suggestion =>
+            <div>{loading ? 'Loading...' : suggestions.map(suggestion =>
                 <ResearcherSuggestionItem suggestion={suggestion} onClickSuggestion={handleAddition} key={suggestion.id} />
             )}</div>
         </div>

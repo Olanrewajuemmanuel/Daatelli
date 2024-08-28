@@ -12,6 +12,7 @@ import { useCookies } from "react-cookie";
 import { UserContext } from "../../contexts";
 import { RegisterType } from "../../types/enums";
 import ScreenUpdateDisplay from "../../components/ScreenUpdateDisplay";
+import { idGenerator } from "../../lib/utils";
 
 
 
@@ -28,7 +29,7 @@ function Feed() {
                 const user = await getUserProfile(cookies.access);
                 setUser(user);
             } catch (err) {
-                console.error(err);
+                dispatch({ type: "ADD", message: { id: idGenerator, message: (err as Error).message, type: "warning" } })
             }
         }
 

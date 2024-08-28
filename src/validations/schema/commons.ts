@@ -1,8 +1,18 @@
 import * as yup from "yup";
 import { Findings, SuggestionItem } from "../../types/types";
 
-const MAX_FILES_SIZE = 200 * 1024 * 1024; // 200 MB
-const MAX_FILES_COUNT = 5;
+export const MAX_FILES_SIZE = 200 * 1024 * 1024; // 200 MB
+export const MAX_FILES_COUNT = 5;
+
+const supportedDocTypes = [
+  "application/pdf",
+  "text/csv",
+  "text/plain",
+  "application/vnd.ms-excel",
+  "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+  "application/vnd.ms-powerpoint",
+  "application/vnd.oasis.opendocument.presentation",
+];
 
 export const createUploadFileSchema = (fullName: string | undefined) => {
   return yup.object().shape({
@@ -28,6 +38,17 @@ export const createUploadFileSchema = (fullName: string | undefined) => {
             0
           );
           return totalSize <= MAX_FILES_SIZE;
+        }
+      )
+      .test(
+        "supported_docs",
+        "Unsupported file format. Should be of type txt, PDF, CSV, Excel, PPT or Word document",
+        (files) => {
+          if (!files) return false;
+          return (
+            Array.isArray([...files]) &&
+            [...files].every((file) => supportedDocTypes.includes(file.type))
+          );
         }
       ),
     privateCopy: yup.boolean(),

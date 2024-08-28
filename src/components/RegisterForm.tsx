@@ -90,9 +90,10 @@ function RegisterForm({ mode, onRegister }: { mode: RegisterType, onRegister: (e
 
                 await registerMember(formData as RegistrationData);
                 await onRegister(formData.email as string, formData.password1 as string)
-                setDisabled(false)
             } catch (err: unknown) {
                 setFormErrors([{ error: (err as Error)?.message || 'An unexpected error occurred', label: '' }])
+            } finally {
+                setDisabled(false)
             }
         } else {
             // Display errors

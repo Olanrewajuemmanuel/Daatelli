@@ -1,27 +1,19 @@
-import { FindingsBadge } from "../types/enums";
-import { DocumentFormSchemaType, Findings } from "../types/types";
-
-const exampleFindingResponse = {
-  id: "1234",
-  findings: <Findings[]>[
-    {
-      id: "12",
-      badge: FindingsBadge.correlations,
-      text: "A finding text",
-    },
-    {
-      id: "345",
-      badge: FindingsBadge.significant,
-      text: "Another finding text",
-    },
-  ],
-  creator: "John Doe",
-};
+import { serverRoutes } from "../constants";
+import { DocumentFormSchemaType } from "../types/types";
+import { axiosPrivateClient } from "./config";
 
 export async function createFinding(
   finding: DocumentFormSchemaType,
   accessToken: string
 ) {
-  if (!accessToken) return Promise.reject("Invalid token provided");
-  return Promise.resolve(exampleFindingResponse);
+  try {
+    const response = await axiosPrivateClient(accessToken, finding).post(
+      serverRoutes.userFindings
+    );
+    return await response.data;
+  } catch (error) {
+    return Promise.reject(
+      (error as Error) || Error("An unexpected error occurred")
+    );
+  }
 }

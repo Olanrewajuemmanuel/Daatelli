@@ -1,6 +1,7 @@
 import { useNavigate, useSearchParams } from "react-router-dom"
 import DocumentsFlow from "../../components/step-form/DocumentsFlow";
 import { routesMap } from "../../constants";
+import MultimediaFlow from "../../components/step-form/MultimediaFlow";
 
 function AddFinding() {
     const [searchParams] = useSearchParams()
@@ -22,7 +23,7 @@ function AddFinding() {
         case 'videos':
         case 'images':
             // Multimedia view
-            display = <div>Multimedia</div>
+            display = <MultimediaFlow onCreateFinding={handleCreationNavigation} />
             break;
         default:
             // Display structured data view as fallback (PPT, pdf, docs, csv etc)

@@ -3,6 +3,7 @@ import { Citation, UploadFindingSchemaType } from "../../types/types"
 import { useFormContext } from "react-hook-form";
 import InputError from "../InputError";
 import { urlValidationSchema } from "../../validations/schema/commons";
+import { idGenerator } from "../../lib/utils";
 
 function AddCitations({ citations, onCitationUpdate }: { citations: Citation[], onCitationUpdate: (action: 'delete' | 'add', citation?: Citation, id?: string) => void }) {
     const { setError, clearErrors, formState: { errors } } = useFormContext<UploadFindingSchemaType>();
@@ -21,7 +22,7 @@ function AddCitations({ citations, onCitationUpdate }: { citations: Citation[], 
         };
         urlValidationSchema.validate(citeLink).then(() => {
             const citation = {
-                id: Math.random().toString(),
+                id: idGenerator,
                 name: citeText,
                 link: citeLink
             }
