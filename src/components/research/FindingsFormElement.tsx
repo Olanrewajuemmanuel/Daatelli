@@ -53,6 +53,7 @@ function FindingsFormElement() {
         setValue("findings", [...findings, newFinding], { shouldValidate: true })
         setFindingsText('')
         setFindingsCitation([])
+        setDisplayCite(false)
 
 
     }

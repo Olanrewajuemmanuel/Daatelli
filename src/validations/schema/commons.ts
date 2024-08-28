@@ -1,8 +1,8 @@
 import * as yup from "yup";
 import { Findings, SuggestionItem } from "../../types/types";
 
-const MAX_FILES_SIZE = 200 * 1024 * 1024; // 200 MB
-const MAX_FILES_COUNT = 5;
+export const MAX_FILES_SIZE = 200 * 1024 * 1024; // 200 MB
+export const MAX_FILES_COUNT = 5;
 
 const supportedDocTypes = [
   "application/pdf",
