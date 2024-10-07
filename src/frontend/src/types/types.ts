@@ -64,6 +64,7 @@ export type Findings = {
 };
 
 export type UploadFileSchemaType = InferType<typeof uploadFileSchema>;
+export type MultiMediaFileSchemaType = InferType<typeof uploadFileSchema>;
 export type UploadFindingSchemaType = InferType<typeof uploadFindingsSchema>;
 export type AttestationSchemaType = InferType<typeof attestationSchema>;
 export type DocumentFormSchemaType =
@@ -75,4 +76,7 @@ export type LoginResponse = {
   accessToken: string;
   refreshToken: string;
 };
-export type MultiMediaFormType = AttestationSchemaType;
+export type MultiMediaFormType =
+  | MultiMediaFileSchemaType
+  | UploadFindingSchemaType
+  | AttestationSchemaType;

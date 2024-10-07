@@ -1,6 +1,29 @@
 import * as yup from "yup";
-import { MAX_FILES_COUNT, MAX_FILES_SIZE } from "./commons";
 import { SuggestionItem } from "../../types/types";
+
+const supportedMediaTypes = [
+  // Videos
+  "video/mp4",
+  "video/ogg",
+  "video/MPV",
+  //   Images
+  "image/jpg",
+  "image/jpeg",
+  "image/apng",
+  "image/avif",
+  "image/png",
+  "image/svg+xml",
+  "image/ico",
+  "image/bmp",
+  "image/heic",
+  "image/gif",
+  "image/webp",
+  //   To be fully supported...
+  "audio/ogg",
+  "audio/webm",
+  "audio/wav",
+];
+const MAX_FILES_SIZE = 2 * 1024 * 1024 * 1024;
 
 export const createMultiMediaUploadFileSchema = (
   fullName: string | undefined
@@ -12,13 +35,9 @@ export const createMultiMediaUploadFileSchema = (
         if (!files?.length) return false;
         return true;
       })
-      .test("max_length", "You most upload at most 5 files", (files) => {
-        if (!files) return false;
-        return Array.isArray([...files]) && files.length <= MAX_FILES_COUNT;
-      })
       .test(
         "total_file_size",
-        "Total size of files must be less than 200MB",
+        "Total size of files must be less than 2GB",
         (files) => {
           if (!files) return false;
           if (!Array.isArray([...files])) return false;
@@ -29,7 +48,14 @@ export const createMultiMediaUploadFileSchema = (
           );
           return totalSize <= MAX_FILES_SIZE;
         }
-      ),
+      )
+      .test("supported_docs", "Unsupported file format.", (files) => {
+        if (!files) return false;
+        return (
+          Array.isArray([...files]) &&
+          [...files].every((file) => supportedMediaTypes.includes(file.type))
+        );
+      }),
     privateCopy: yup.boolean(),
     researchers: yup
       .array<SuggestionItem[]>()

@@ -2,6 +2,7 @@ import { useNavigate, useSearchParams } from "react-router-dom"
 import DocumentsFlow from "../../components/step-form/DocumentsFlow";
 import { routesMap } from "../../constants";
 import MultimediaFlow from "../../components/step-form/MultimediaFlow";
+import CodeFlow from "../../components/step-form/CodeFlow";
 
 function AddFinding() {
     const [searchParams] = useSearchParams()
@@ -18,7 +19,7 @@ function AddFinding() {
         case 'algorithms':
         case 'model':
             // Formatted text and test case view
-            display = <div>Code</div>
+            display = <CodeFlow onCreateFinding={handleCreationNavigation} />
             break;
         case 'videos':
         case 'images':
@@ -37,6 +38,7 @@ function AddFinding() {
                 <a href="/feed">Air data</a>
             </nav>
             <div>
+                <h2>Add '{searchParams.get('type')}'</h2>
                 {display}
             </div>
         </div>
