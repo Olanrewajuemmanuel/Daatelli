@@ -2,7 +2,7 @@
 
 <p align="center" style="width: 100%; height: 100px;">
 <a href="https://air-data.netlify.app/">
-    <img src="https://github.com/olaleru/daatelli/blob/main/assets/logo.png?raw=true" style="width: 100%; height: 100%; object-fit: contain;" alt="Daatelli Website image">
+    <img src="https://github.com/user-attachments/assets/6f6aef9d-cace-41a3-b517-b65e84364ae3" style="width: 100%; height: 100%; object-fit: cover;" alt="Daatelli Website image">
 </a>
 </p>
 
