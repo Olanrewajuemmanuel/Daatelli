@@ -17,9 +17,15 @@ Daatelli is a simple and easy web interface to share your research findings with
 
 ## 🚀Features
 
-- **Social media feel to research sharing** - Share your research findings with the world
+- **Social media feel to research sharing** - Share your research findings with the world in a very quick and easy way.
 - **Trends in research** - Find out what is trending in your research domain and what path you should take
 - **Insights✨✨** - Get insights from powerful AI models based on research data. Improve your next field study as quickly as possible.
+
+## How to run locally
+The quickest way to run Daatelli locally is to use Docker and docker-compose.
+1. Clone the repository and cd into the `deploy/` directory
+2. Run `docker-compose up` to start the services
+3. Open your browser and navigate to `http://localhost:3000` to access the Daatelli website
 
 ## Roadmap
 
