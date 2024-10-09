@@ -1,4 +1,4 @@
-import { serverRoutes } from "../constants";
+import { getURL, serverRoutes } from "../constants";
 import { LoginResponse } from "../types/types";
 import { axiosPublicClient } from "./config";
 
@@ -15,7 +15,9 @@ export const loginUser = async (
   let refreshToken = null;
   if (email) {
     try {
-      const response = await axiosPublicClient.post(serverRoutes.login);
+      const response = await axiosPublicClient.post(
+        `${getURL(serverRoutes.login)}?user=${username}`
+      );
       const data: LoginResponse = await response.data;
       accessToken = data.accessToken;
       refreshToken = data.refreshToken;
@@ -34,7 +36,7 @@ export const loginUser = async (
 
 export const logoutUser = async (accessToken: string) => {
   try {
-    return await axiosPublicClient.post(serverRoutes.logout, "", {
+    return await axiosPublicClient.post(getURL(serverRoutes.logout), "", {
       headers: { Authorization: `Bearer ${accessToken}` },
     });
   } catch (err) {

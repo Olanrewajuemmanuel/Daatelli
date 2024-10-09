@@ -6,7 +6,7 @@ from starlette.middleware.cors import CORSMiddleware
 from prometheus_fastapi_instrumentator import Instrumentator
 from loguru import logger
 
-from daatelli.api.router import router
+from daatelli.core.api.router import router
 
 
 @asynccontextmanager
@@ -19,7 +19,7 @@ async def lifespan(app: FastAPI):
 
 
 def create_app() -> FastAPI:
-    from version import get_version
+    from daatelli.version import get_version
 
     __version__ = get_version()
     app = FastAPI(
@@ -45,4 +45,4 @@ def create_app() -> FastAPI:
 
 
 if __name__ == "__main__":
-    uvicorn.run("core.main:create_app", host="127.0.0.1", port=8000, workers=2)
+    uvicorn.run("daatelli.core.main:create_app", host="127.0.0.1", port=8000, workers=2)

@@ -10,7 +10,7 @@ export const routesMap = {
 };
 
 export const globals = {
-  appName: "Air-data",
+  appName: "Daatelli",
 };
 
 export const serverRoutes = {
@@ -20,3 +20,11 @@ export const serverRoutes = {
   register: `register`,
   userFindings: `user-findings`,
 } as const;
+
+export function getURL(route: keyof typeof serverRoutes) {
+  if (route === serverRoutes.login || route === serverRoutes.logout || route === serverRoutes.register) {
+    // Auth routes are prefixed with 'auth'
+    return `/api/v1/auth/${route}`;
+  }
+  return `/api/v1/${route}`;
+}

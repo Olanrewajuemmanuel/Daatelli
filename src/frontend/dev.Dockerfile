@@ -1,8 +1,13 @@
 FROM node:20-alpine
 WORKDIR /app
 
-COPY ./package.json ./package-lock.json ./tsconfig.json ./eslint.config.mjs ./public ./tailwind.config.js /app/
-RUN npm install
+COPY ./package.json ./yarn.lock ./tsconfig.json ./eslint.config.mjs ./tailwind.config.js /app/
+
+RUN yarn install
 COPY ./src /app/src
 
-CMD ["npm start"]
+RUN yarn build
+
+EXPOSE 3000
+
+CMD ["yarn start"]
