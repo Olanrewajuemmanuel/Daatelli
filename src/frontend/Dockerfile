@@ -2,14 +2,20 @@ FROM node:20-alpine as frontend_build
 ARG BACKEND_URL
 WORKDIR /app
 
-COPY ./package.json ./package-lock.json ./tsconfig.json ./eslint.config.mjs ./public ./tailwind.config.js /app/
-RUN npm install
+COPY ./package.json ./yarn.lock ./tsconfig.json ./eslint.config.mjs ./tailwind.config.js /app/
+RUN yarn install
 COPY ./src /app/src
-RUN npm run build
+COPY ./public /app/public
+RUN yarn build
+
 
 FROM nginx
 COPY --from=frontend_build /app/build/ /usr/share/nginx/html
-COPY start-nginx.sh /start-nginx.sh
-RUN chmod +x /start-nginx.sh
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+RUN mkdir /usr/share/nginx/logs
 ENV BACKEND_URL=$BACKEND_URL
-CMD ["/start-nginx.sh"]
+
+EXPOSE 80
+
+# Start nginx
+CMD ["nginx", "-g", "daemon off;"]

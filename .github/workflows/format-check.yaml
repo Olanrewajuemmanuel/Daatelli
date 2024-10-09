@@ -1,0 +1,59 @@
+name: Format Check
+
+on:
+  push:
+    branches:
+      - [stable, master]
+  pull_request:
+    branches:
+      - [stable, master]
+
+jobs:
+  format-frontend:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          context: src/frontend
+          node-version: "16" # Specify the Node.js version you are using
+
+      - name: Install lint
+        with:
+          context: src/frontend
+        run: npm install lint
+
+      - name: Run linter
+        with:
+          context: src/frontend
+        run: npm run lint
+
+  format-backend:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: "3.10" # Specify the Python version you are using
+
+      - name: Install black
+        with:
+          context: src/backend
+        run: pip install black
+
+      - name: Run black
+        with:
+          context: src/backend
+        run: black .
+
+      - name: Run linter
+        with:
+          context: src/frontend
