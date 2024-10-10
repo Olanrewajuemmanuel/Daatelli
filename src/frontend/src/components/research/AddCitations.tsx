@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { Citation, UploadFindingSchemaType } from "../../types/types"
 import { useFormContext } from "react-hook-form";
-import InputError from "../InputError";
+import InputError from "../uiEnhancements/InputError";
 import { urlValidationSchema } from "../../validations/schema/commons";
 import { idGenerator } from "../../constants/utils";
 

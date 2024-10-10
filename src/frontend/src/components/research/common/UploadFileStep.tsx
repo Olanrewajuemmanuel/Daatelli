@@ -1,8 +1,8 @@
-import InfoItem from "../../InfoItem";
+import InfoItem from "../../uiEnhancements/InfoItem";
 import SelectMultipleResearchers from "../SelectMultipleResearchers";
 import { UploadFileSchemaType } from "../../../types/types";
 import { useFormContext } from "react-hook-form";
-import InputError from "../../InputError";
+import InputError from "../../uiEnhancements/InputError";
 import { globals } from "../../../constants";
 
 

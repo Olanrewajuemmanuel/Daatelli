@@ -12,7 +12,7 @@ version ?= 0.1.0
 
 # Run the FastAPI app using Uvicorn (development mode)
 run:
-	$(UVICORN) $(APP_NAME).main:create_app --reload --host $(HOST) --port $(PORT)
+	$(UVICORN) $(PROJECT_NAME).main:create_app --reload --host $(HOST) --port $(PORT)
 
 install:
 	$(POETRY) install

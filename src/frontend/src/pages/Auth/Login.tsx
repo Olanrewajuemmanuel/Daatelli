@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react'
-import RootLogin from '../../components/RootLogin'
-import CollabLogin from '../../components/CollabLogin'
+import RootLogin from '../../components/auth/RootLogin'
+import CollabLogin from '../../components/auth/CollabLogin'
 import { useCookies } from 'react-cookie'
 import { Link, useNavigate } from 'react-router-dom'
 import { routesMap } from '../../constants'
 import { loginUser } from '../../actions/auth'
+import HealthCheck from '../../components/healthCheck'
 
 function Login() {
     const [state, setState] = useState('root')
@@ -54,7 +55,7 @@ function Login() {
             </div>
             <Link to={routesMap.forgotPassword + `?uid=${uid}`}>Forgot password?</Link>
             <p>Create an account <Link to={routesMap.register}>here</Link></p>
-
+            <HealthCheck />
         </div>
     )
 }

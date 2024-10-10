@@ -3,6 +3,7 @@ import DocumentsFlow from "../../components/step-form/DocumentsFlow";
 import { routesMap } from "../../constants";
 import MultimediaFlow from "../../components/step-form/MultimediaFlow";
 import CodeFlow from "../../components/step-form/CodeFlow";
+import HealthCheck from "../../components/healthCheck";
 
 function AddFinding() {
     const [searchParams] = useSearchParams()
@@ -41,6 +42,7 @@ function AddFinding() {
                 <h2>Add '{searchParams.get('type')}'</h2>
                 {display}
             </div>
+            <HealthCheck />
         </div>
     );
 

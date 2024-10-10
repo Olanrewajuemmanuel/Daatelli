@@ -20,6 +20,7 @@ async def lifespan(app: FastAPI):
 
 def create_app() -> FastAPI:
     from daatelli.version import get_version
+    from daatelli.core.api.v1.health_check import router as health_check_router
 
     __version__ = get_version()
     app = FastAPI(
@@ -30,6 +31,7 @@ def create_app() -> FastAPI:
     )
 
     app.include_router(router)
+    app.include_router(health_check_router)
 
     app.add_middleware(
         CORSMiddleware,

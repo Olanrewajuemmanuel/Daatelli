@@ -1,4 +1,4 @@
-import { Message } from "../types/types"
+import { Message } from "../../types/types"
 
 function MessagesBanner({ onUpdate, messages }: {
   onUpdate: React.Dispatch<{

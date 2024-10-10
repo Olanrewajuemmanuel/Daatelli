@@ -1,7 +1,7 @@
 import { useCookies } from "react-cookie"
-import { logoutUser } from "../actions/auth"
-import { Message } from "../types/types";
-import { idGenerator } from "../constants/utils";
+import { logoutUser } from "../../actions/auth"
+import { Message } from "../../types/types";
+import { idGenerator } from "../../constants/utils";
 
 
 function NavBar({ onMessagesUpdate }: {

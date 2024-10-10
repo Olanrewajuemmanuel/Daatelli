@@ -1,13 +1,13 @@
 import { ChangeEvent, useState } from "react"
 import { Citation, Findings, UploadFindingSchemaType } from "../../types/types"
 import FindingsDragAndDrop from "./FindingsDragAndDrop"
-import InfoItem from "../InfoItem"
+import InfoItem from "../uiEnhancements/InfoItem"
 import { globals } from "../../constants"
 import Select from "react-select"
 import { FindingsBadge } from "../../types/enums"
 import AddCitations from "./AddCitations"
 import { useFormContext } from "react-hook-form"
-import InputError from "../InputError"
+import InputError from "../uiEnhancements/InputError"
 import { idGenerator } from "../../constants/utils"
 
 const badgesOptions = [

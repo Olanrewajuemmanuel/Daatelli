@@ -1,11 +1,11 @@
 import { ChangeEvent, FormEvent, useState } from "react";
-import professions from "../constants/fields"
-import { RegisterType } from "../types/enums"
-import InfoItem from "./InfoItem"
+import professions from "../../constants/fields"
+import { RegisterType } from "../../types/enums"
+import InfoItem from "../uiEnhancements/InfoItem"
 import Select from "react-select";
 import CreatableSelect from "react-select/creatable";
-import { RegistrationData } from "../types/types";
-import { registerMember, validateForm } from "../actions/register";
+import { RegistrationData } from "../../types/types";
+import { registerMember, validateForm } from "../../actions/register";
 
 
 const fieldOptions: readonly {

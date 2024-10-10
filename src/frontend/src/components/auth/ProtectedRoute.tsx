@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 import { useEffect, useState } from 'react';
-import { routesMap } from '../constants';
+import { routesMap } from '../../constants';
 
 const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
     const [, setAuth] = useState(false)

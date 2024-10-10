@@ -1,5 +1,5 @@
 import { ChangeEvent, Dispatch, FormEvent, useEffect, useState } from "react"
-import { FormData } from "../types/types";
+import { FormData } from "../../types/types";
 
 
 function RootLogin({ onLogin, setCurrentUid }: { onLogin: (email: string, password: string, rememberMe: boolean) => Promise<void>, setCurrentUid: Dispatch<React.SetStateAction<string>> }) {

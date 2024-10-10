@@ -1,6 +1,6 @@
 import { DragDropContext, Draggable, DropResult } from 'react-beautiful-dnd';
 import { SuggestionItem } from "../../types/types"
-import DroppableWrapper from '../DroppableWrapper';
+import DroppableWrapper from '../uiEnhancements/DroppableWrapper';
 
 function AuthorsDragAndDrop({ selectedNames, handleDeletion, onDrag }: { selectedNames: SuggestionItem[], handleDeletion: (id: string) => void, onDrag: (items: SuggestionItem[]) => void }) {
 

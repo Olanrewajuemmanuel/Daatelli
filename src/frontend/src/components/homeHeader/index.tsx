@@ -4,6 +4,8 @@ import DatelliLogo from "../../assets/Daatelli.svg"
 
 function HomeHeader({ cookies }: { cookies: any }) {
     const navigate = useNavigate()
+    console.log(cookies.access);
+
 
     return (
         <header className="inter-body flex items-center max-h-64 py-2 border-b border-gray-200 opacity-80">
@@ -17,11 +19,14 @@ function HomeHeader({ cookies }: { cookies: any }) {
                     <li><a href="/roadmap">What's new? ✨</a></li>
                 </ul>
                 <div>
-                    <div hidden={cookies.access} className="space-x-5">
-                        <button className="btn bg-primary text-white" onClick={() => navigate(routesMap.login)}>Login</button>
-                        <button className="btn" onClick={() => navigate(routesMap.register)}>Register</button>
-                    </div>
-                    <button hidden={!cookies.access} onClick={() => navigate(routesMap.feed)} className="btn bg-primary text-white">Return to feed</button>
+                    {cookies.access ? (
+                        <button onClick={() => navigate(routesMap.feed)} className="btn bg-primary text-white">Return to feed</button>
+                    ) : (
+                        <div className="space-x-5">
+                            <button className="btn bg-primary text-white" onClick={() => navigate(routesMap.login)}>Login</button>
+                            <button className="btn" onClick={() => navigate(routesMap.register)}>Register</button>
+                        </div>
+                    )}
                 </div>
             </div>
         </header>

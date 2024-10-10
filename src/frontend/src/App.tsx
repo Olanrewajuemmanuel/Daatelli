@@ -9,10 +9,12 @@ import Register from "./pages/Auth/Register";
 import { routesMap } from "./constants";
 import { CookiesProvider } from "react-cookie";
 import Feed from "./pages/Feed";
-import ProtectedRoute from "./components/ProtectedRoute";
+import ProtectedRoute from "./components/auth/ProtectedRoute";
 import ForgotPassword from "./pages/Auth/ForgotPassword";
 import ResetPassword from "./pages/Auth/ResetPassword";
 import AddFinding from "./pages/Findings/AddFinding";
+import { Suspense } from "react";
+import LoadingComponent from "./components/loading/LoadingComponent";
 
 const routes = [
   {
@@ -48,7 +50,11 @@ const routes = [
 
 const router = createBrowserRouter(routes);
 function App() {
-  return <CookiesProvider defaultSetOptions={{ path: '/' }}><RouterProvider router={router}></RouterProvider></CookiesProvider>;
+  return <CookiesProvider defaultSetOptions={{ path: '/' }}>
+    <Suspense fallback={<LoadingComponent />}>
+      <RouterProvider router={router}></RouterProvider>
+    </Suspense>
+  </CookiesProvider>;
 }
 
 export default App;

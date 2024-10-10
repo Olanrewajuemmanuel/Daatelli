@@ -1,6 +1,7 @@
 import { FormEvent, useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom"
 import { sendResetPasswordRequest } from "../../actions/auth";
+import HealthCheck from "../../components/healthCheck";
 
 function ForgotPassword() {
     const [searchParams,] = useSearchParams();
@@ -60,6 +61,7 @@ function ForgotPassword() {
                 <input type="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} />
             </div>
             <button type="submit" disabled={disabled} className="disabled:text-red-100">Submit</button>
+            <HealthCheck />
         </form>
     )
 }

@@ -1,6 +1,6 @@
 import { useFormContext } from "react-hook-form";
-import InputError from "../../InputError";
-import InfoItem from "../../InfoItem";
+import InputError from "../../uiEnhancements/InputError";
+import InfoItem from "../../uiEnhancements/InfoItem";
 import SelectMultipleResearchers from "../SelectMultipleResearchers";
 import Select from "react-select";
 import { MouseEvent } from "react";

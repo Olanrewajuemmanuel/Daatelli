@@ -1,6 +1,7 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from "react"
 import { useSearchParams } from "react-router-dom";
 import { sendResetPasswordConfirmation } from "../../actions/auth";
+import HealthCheck from "../../components/healthCheck";
 
 function ResetPassword() {
     const [disabled, setDisabled] = useState(true)
@@ -58,6 +59,7 @@ function ResetPassword() {
                 <input type="password" name="newPassword" value={formData.newPassword} onChange={handleChange} />
             </div>
             <button type="submit" disabled={disabled} className="disabled:text-red-100">Submit</button>
+            <HealthCheck />
         </form>
     )
 }

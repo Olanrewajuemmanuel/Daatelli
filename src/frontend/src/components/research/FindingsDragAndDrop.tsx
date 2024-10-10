@@ -1,5 +1,5 @@
 import { DragDropContext, Draggable, DropResult } from "react-beautiful-dnd";
-import DroppableWrapper from "../DroppableWrapper";
+import DroppableWrapper from "../uiEnhancements/DroppableWrapper";
 import { Findings, UploadFindingSchemaType } from "../../types/types";
 import CitationsList from "./CitationsList";
 import { FindingsBadge } from "../../types/enums";

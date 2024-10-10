@@ -17,9 +17,9 @@ function Home() {
         5000,
         'your thoughts on research trends',
         3000,
-        'insights in your field of study',
+        'insights on your field of study',
         3000,
-        'your next creative idea',
+        'your next ground breaking proposal',
         3000,
     ]
 
@@ -65,7 +65,7 @@ function Home() {
                         <img src="" alt="Social Media GIF" />
                     </div>
                 </section>
-                <section className="mt-32 p-16">
+                <section className="mt-32 p-5">
                     <div className="flex flex-row-reverse">
                         <div className="w-1/2 space-y-5">
                             <h2 className="inter-heading text-5xl">AI Insights</h2>
@@ -84,56 +84,71 @@ function Home() {
 
                         </div>
                         <div className="w-1/2 h-full shadow-md">
-                            <div className="bg-[#0D1117] h-full rounded-sm text-white px-8 py-4 absolute right-0 top-0 bottom-0" data-language="python" data-testId="code-editor-home">
-                                <div className="code-line">
-                                    <span className="code-keyword">from </span>
-                                    <span>daatelli.extractor </span>
-                                    <span className="code-keyword">import </span>
-                                    <span>JsonExtractor</span>
-                                </div>
-                                <div className="code-line">
-                                    <span className="code-keyword">from </span>
-                                    <span>daatelli </span>
-                                    <span className="code-keyword">import </span>
-                                    <span>get_trends</span>
-                                </div>
+                            <div className="mockup-code max-w-[680px] h-full rounded-md text-white px-6 py-6 absolute right-0 top-0 bottom-0" data-language="python" data-testid="code-editor-home">
+                                <pre data-prefix="1">
+                                    <code className="code-line">
+                                        <span className="code-keyword">from </span>
+                                        <span>daatelli.extractor </span>
+                                        <span className="code-keyword">import </span>
+                                        <span>JsonExtractor</span>
+                                    </code>
+                                </pre>
+                                <pre data-prefix="2">
+                                    <code className="code-line">
+                                        <span className="code-keyword">from </span>
+                                        <span>daatelli </span>
+                                        <span className="code-keyword">import </span>
+                                        <span>get_trends</span>
+                                    </code>
+                                </pre>
+                                <pre data-prefix="3"></pre>
+                                <pre data-prefix="4">
+                                    <code className="code-line">
+                                        <span className="code-variable">file </span>
+                                        <span>= </span>
+                                        <span>"my_project.pdf"</span>
+                                    </code>
+                                </pre>
+                                <pre data-prefix="5">
+                                    <code className="code-line">
+                                        <span className="code-variable">extractor </span>
+                                        <span>= </span>
+                                        <span className="code-definition">JsonExtractor</span>
+                                        <span>()</span>
+                                    </code>
+                                </pre>
+                                <pre data-prefix="6">
+                                    <code className="code-line">
+                                        <span className="code-variable">trends </span>
+                                        <span>= </span>
+                                        <span className="code-definition">get_trends</span>
+                                        <span>(reference="https://arxiv.org/abs/2402.09635")</span>
+                                    </code>
+                                </pre>
+                                <pre data-prefix="7">
+                                    <code className="code-line">
+                                        <span className="code-variable">data </span>
+                                        <span>= </span>
+                                        <span className="code-definition">extractor</span>
+                                        <span>.</span>
+                                        <span className="code-method">extract_data</span>
+                                        <span>(file, trends)</span>
+                                    </code>
+                                </pre>
+                                <pre data-prefix="8">
+                                    <code className="code-line">
+                                        <span className="code-keyword">print</span>
+                                        <span>(data)</span>
+                                    </code>
+                                </pre>
                                 <br />
-                                <div className="code-line">
-                                    <span className="code-variable">file </span>
-                                    <span>= </span>
-                                    <span>{`my_project.pdf`}</span>
-                                </div>
-                                <div className="code-line">
-                                    <span className="code-variable">extractor </span>
-                                    <span>= </span>
-                                    <span className="code-definition">JsonExtractor()</span>
-                                </div>
-                                <div className="code-line">
-                                    <span className="code-variable">trends </span>
-                                    <span>= </span>
-                                    <span className="code-definition">get_trends</span>
-                                    <span>(reference="https://arxiv.org/abs/2402.09635")</span>
-                                </div>
-                                <div className="code-line">
-                                    <span className="code-variable">data </span>
-                                    <span>= </span>
-                                    <span className="code-definition">extractor</span>
-                                    <span>.</span>
-                                    <span className="code-method">extract_data</span>
-                                    <span>(file, trends)</span>
-                                </div>
-                                <br />
-                                <div className="code-line">
-                                    <span className="code-keyword">print</span>
-                                    <span>(data)</span>
-                                </div>
-                                <br />
-
-                                <span>
-                                    {
-                                        `>>> Trend: { title: 'AI', keywords: ['AI', 'Computer Vision', 'Deep Learning'], coverage: 0.9 }`
-                                    }
-                                </span>
+                                <pre data-prefix=">>>">
+                                    <code className="code-line p-1 bg-slate-600 hover:bg-slate-700 rounded-sm">
+                                        {
+                                            `Trend: { title: 'AI', keywords: ['AI', 'Computer Vision', 'Deep Learning'], coverage: 0.9 }`
+                                        }
+                                    </code>
+                                </pre>
                             </div>
                         </div>
                     </div>

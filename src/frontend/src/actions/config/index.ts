@@ -12,3 +12,11 @@ export const axiosPrivateClient = (token: string, data: unknown) =>
     responseType: "json",
     data,
   });
+
+axiosPublicClient.interceptors.response.use((config) => {
+  
+  if (config.status === 200) {
+    window.localStorage.setItem('last-health-check', 'ok')
+  }
+  return config
+})

@@ -1,19 +1,21 @@
-import { useEffect, useReducer, useState } from "react";
-import MessagesBanner from "../../components/MessagesBanner"
-import NavBar from "../../components/NavBar"
+import { useEffect, useReducer, useState, lazy, Suspense } from "react";
+import MessagesBanner from "../../components/uiEnhancements/MessagesBanner"
+import NavBar from "../../components/uiEnhancements/NavBar"
 import { bannerMessages, bannerMessagesReducer } from "../../reducers";
-import SideBar from "../../components/SideBar";
+import SideBar from "../../components/feed/SideBar";
 import AddResearchButton from "../../components/research/AddResearchButton";
-import UserProfileUpdates from "../../components/UserProfileUpdates";
 import ResearchPosts from "../../components/posts/ResearchPosts";
 import { User } from "../../types/types";
 import { getUserProfile } from "../../actions/user";
 import { useCookies } from "react-cookie";
 import { UserContext } from "../../contexts";
 import { RegisterType } from "../../types/enums";
-import ScreenUpdateDisplay from "../../components/ScreenUpdateDisplay";
+import ScreenUpdateDisplay from "../../components/uiEnhancements/ScreenUpdateDisplay";
 import { idGenerator } from "../../constants/utils";
+import LoadingComponent from "../../components/loading/LoadingComponent";
+import HealthCheck from "../../components/healthCheck";
 
+const UserProfileUpdates = lazy(() => import("../../components/feed/UserProfileUpdates"));
 
 
 function Feed() {
@@ -53,10 +55,13 @@ function Feed() {
                     <ResearchPosts />
                     <div className="min-w-56">
                         <AddResearchButton onSetScreenState={handleScreenState} />
-                        <UserProfileUpdates />
+                        <Suspense fallback={<LoadingComponent />}>
+                            <UserProfileUpdates />
+                        </Suspense>
                     </div>
                 </main>
                 {displayMode && <ScreenUpdateDisplay mode={clickMode} toggleDisplay={setDisplayMode} />}
+                <HealthCheck />
             </div>
         </UserContext.Provider>
     )

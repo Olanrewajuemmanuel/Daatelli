@@ -19,12 +19,16 @@ export const serverRoutes = {
   userProfiles: `user-profiles`,
   register: `register`,
   userFindings: `user-findings`,
+  health: `health`,
 } as const;
 
 export function getURL(route: keyof typeof serverRoutes) {
   if (route === serverRoutes.login || route === serverRoutes.logout || route === serverRoutes.register) {
     // Auth routes are prefixed with 'auth'
     return `/api/v1/auth/${route}`;
+  } else if (route === serverRoutes.health) {
+    return `/health/`;
+  } else {
+    return `/api/v1/${route}`
   }
-  return `/api/v1/${route}`;
 }

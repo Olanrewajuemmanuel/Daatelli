@@ -3,8 +3,9 @@ import { useCookies } from "react-cookie"
 import { Link, useNavigate } from "react-router-dom"
 import { routesMap } from "../../constants"
 import { RegisterType } from "../../types/enums"
-import RegisterForm from "../../components/RegisterForm"
+import RegisterForm from "../../components/auth/RegisterForm"
 import { loginUser } from "../../actions/auth"
+import HealthCheck from "../../components/healthCheck"
 
 
 function Register() {
@@ -68,6 +69,7 @@ function Register() {
 
 
             <p>Already a user? <Link to={routesMap.login}>Sign in</Link></p>
+            <HealthCheck />
         </div>
     )
 }

@@ -1,10 +1,10 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import ResearcherSuggestionItem from "./ResearcherSuggestionItem";
-import InfoItem from "../InfoItem";
+import InfoItem from "../uiEnhancements/InfoItem";
 import { SuggestionItem, UploadFileSchemaType } from "../../types/types";
 import AuthorsDragAndDrop from "./AuthorsDragAndDrop";
 import { useFormContext } from "react-hook-form";
-import InputError from "../InputError";
+import InputError from "../uiEnhancements/InputError";
 import { useCookies } from "react-cookie";
 import { getUsers } from "../../actions/user";
 import { idGenerator } from "../../constants/utils";

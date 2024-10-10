@@ -1,5 +1,5 @@
-import { RegisterType } from "../types/enums"
-import ResearchTypes from "./research/ResearchTypes";
+import { RegisterType } from "../../types/enums"
+import ResearchTypes from "../research/ResearchTypes";
 import Modal from "./Modal";
 
 function ScreenUpdateDisplay({ mode, toggleDisplay }: { mode: RegisterType | null, toggleDisplay: React.Dispatch<React.SetStateAction<boolean>> }) {

@@ -1,5 +1,5 @@
 import { useFormContext } from "react-hook-form";
-import Attestation from "../../Attestation"
+import Attestation from "../Attestation"
 import { AttestationSchemaType } from "../../../types/types";
 
 function AttestationStep() {
