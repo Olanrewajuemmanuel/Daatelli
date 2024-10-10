@@ -7,7 +7,18 @@ module.exports = {
     background: ["responsive", "hover", "focus", "active", "disabled"],
   },
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        "frosted-glass": "rgba(255, 255, 255, 0.8)",
+        "primary": "#0778E7",
+        "shade-bg": "#EEE"
+      },
+      backgroundImage: {
+        "noise": "url('./assets/noisy-background.jpg')",
+      },
+    },
   },
-  plugins: [],
+  plugins: [
+    require('daisyui'),
+  ],
 };

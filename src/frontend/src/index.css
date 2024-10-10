@@ -1,3 +1,70 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+:root {
+    --primary-color: #222;
+}
+
+.inter-heading {
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
+    color: var(--primary-color);
+}
+
+.inter-heading-2 {
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+    color: var(--primary-color);
+}
+
+.inter-body {
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    color: var(--primary-color);
+}
+
+.text-gradient-primary {
+    background: linear-gradient(to right, #0778E7, #222);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-secondary {
+    background: linear-gradient(to right, #ee18ca, #222);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-oth {
+    background: linear-gradient(to right, #ee4a18, #222);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.backdrop-layers {
+    filter: drop-shadow(0 0 10px rgba(7, 120, 231, 0.5)) drop-shadow(0 0 20px rgba(7, 120, 231, 0.5)) drop-shadow(0 0 30px rgba(7, 120, 231, 0.5));
+    background: white;
+}
+
+
+div[data-language="python"] span.code-keyword {
+    color: #c50595;
+    font-style: italic;
+}
+
+div[data-language="python"] span.code-variable {
+    color: #088dca;
+}
+
+div[data-language="python"] span.code-definition {
+    color: #088dca;
+}

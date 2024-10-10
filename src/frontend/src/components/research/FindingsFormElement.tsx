@@ -8,7 +8,7 @@ import { FindingsBadge } from "../../types/enums"
 import AddCitations from "./AddCitations"
 import { useFormContext } from "react-hook-form"
 import InputError from "../InputError"
-import { idGenerator } from "../../lib/utils"
+import { idGenerator } from "../../constants/utils"
 
 const badgesOptions = [
     { 'label': 'Significant/Expected outcome', value: FindingsBadge.significant },

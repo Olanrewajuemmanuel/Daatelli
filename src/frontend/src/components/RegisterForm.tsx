@@ -1,5 +1,5 @@
 import { ChangeEvent, FormEvent, useState } from "react";
-import professions from "../lib/fields"
+import professions from "../constants/fields"
 import { RegisterType } from "../types/enums"
 import InfoItem from "./InfoItem"
 import Select from "react-select";

@@ -12,7 +12,7 @@ import { useCookies } from "react-cookie";
 import { UserContext } from "../../contexts";
 import { RegisterType } from "../../types/enums";
 import ScreenUpdateDisplay from "../../components/ScreenUpdateDisplay";
-import { idGenerator } from "../../lib/utils";
+import { idGenerator } from "../../constants/utils";
 
 
 

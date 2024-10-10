@@ -7,7 +7,7 @@ import { useFormContext } from "react-hook-form";
 import InputError from "../InputError";
 import { useCookies } from "react-cookie";
 import { getUsers } from "../../actions/user";
-import { idGenerator } from "../../lib/utils";
+import { idGenerator } from "../../constants/utils";
 
 
 function SelectMultipleResearchers() {

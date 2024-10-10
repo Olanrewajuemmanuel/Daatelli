@@ -3,6 +3,7 @@ import SelectMultipleResearchers from "../SelectMultipleResearchers";
 import { UploadFileSchemaType } from "../../../types/types";
 import { useFormContext } from "react-hook-form";
 import InputError from "../../InputError";
+import { globals } from "../../../constants";
 
 
 
@@ -13,7 +14,7 @@ function UploadFileStep() {
         <div>
             <div>
                 <input {...register('files')} type="file" name="files" multiple />
-                <label htmlFor="files">Upload files (max. 200MB total for a max of 10 files) <InfoItem message="Upload documents, multimedia and code files as applicable. By uploading each file, you confirm that you have reviewed and verified each file. You also agree to allow Air-data to extract from each file any data, text snippets, tables, graphs, code and images, captions and metadata as applicable." /></label>
+                <label htmlFor="files">Upload files (max. 200MB total for a max of 10 files) <InfoItem message={`Upload documents, multimedia and code files as applicable. By uploading each file, you confirm that you have reviewed and verified each file. You also agree to allow ${globals.appName} to extract from each file any data, text snippets, tables, graphs, code and images, captions and metadata as applicable.`} /></label>
                 {errors && <InputError message={errors.files?.message?.toString()} />}
             </div>
             {

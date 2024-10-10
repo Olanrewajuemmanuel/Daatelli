@@ -4,6 +4,7 @@ import InfoItem from "../../InfoItem";
 import SelectMultipleResearchers from "../SelectMultipleResearchers";
 import Select from "react-select";
 import { MouseEvent } from "react";
+import { globals } from "../../../constants";
 
 
 const licenseOptions = [
@@ -41,7 +42,7 @@ function UploadCodeFileStep() {
         <div>
             <div>
                 <input {...register('files')} type="file" name="files" multiple />
-                <label htmlFor="files">Upload files (max. 2GB) <InfoItem message="Upload documents, multimedia and code files as applicable. By uploading each file, you confirm that you have reviewed and verified each file. You also agree to allow Air-data to extract from each file any data, text snippets, tables, graphs, code and images, captions and metadata as applicable." /></label>
+                <label htmlFor="files">Upload files (max. 2GB) <InfoItem message={`Upload documents, multimedia and code files as applicable. By uploading each file, you confirm that you have reviewed and verified each file. You also agree to allow ${globals.appName} to extract from each file any data, text snippets, tables, graphs, code and images, captions and metadata as applicable.`} /></label>
                 {errors && <InputError message={errors.files?.message?.toString()} />}
             </div>
             <div>
