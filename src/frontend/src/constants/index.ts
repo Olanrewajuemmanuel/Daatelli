@@ -12,6 +12,8 @@ export const routesMap = {
   developers: "/developers",
   support: "/support",
   privacyPolicy: "/privacy-policy",
+  news: "/news",
+  genesis: "/genesis",
 };
 
 export const globals = {
