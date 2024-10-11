@@ -49,7 +49,7 @@ function Feed() {
         <UserContext.Provider value={user!}>
             <MessagesBanner messages={messages} onUpdate={dispatch} />
             <NavBar onMessagesUpdate={dispatch} />
-            <div className="flex px-4 py-2">
+            <div className="flex px-4 py-2 inter-body md:mt-8">
                 <SideBar />
                 <main className="flex justify-between w-full">
                     <ResearchPosts />

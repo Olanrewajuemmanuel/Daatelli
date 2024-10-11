@@ -1,7 +1,8 @@
 import { FormEvent, useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom"
+import { Link, useSearchParams } from "react-router-dom"
 import { sendResetPasswordRequest } from "../../actions/auth";
 import HealthCheck from "../../components/healthCheck";
+import { routesMap } from "../../constants";
 
 function ForgotPassword() {
     const [searchParams,] = useSearchParams();
@@ -47,22 +48,23 @@ function ForgotPassword() {
 
 
     return (
-        <form onSubmit={handleSubmit}>
-            <div>{formSuccess}</div>
-            <ul>
-                {formErrors.length > 0 && formErrors.map(({ error }, idx) =>
-                    <li key={idx}>{error}</li>
-                )}
-            </ul>
-
-            <p>We will send an email to your already registered email with instructions to reset your password</p>
-            <div>
-                <label htmlFor="email">Email:</label>
-                <input type="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-            </div>
-            <button type="submit" disabled={disabled} className="disabled:text-red-100">Submit</button>
-            <HealthCheck />
-        </form>
+        <div className="inter-body absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/3 min-w-[880px]">
+            <form onSubmit={handleSubmit} className="w-4/5 space-y-6">
+                <div>{formSuccess}<Link to={routesMap.login} className="ml-2 link">Go to Login</Link></div>
+                <ul>
+                    {formErrors.length > 0 && formErrors.map(({ error }, idx) =>
+                        <li key={idx}>{error}</li>
+                    )}
+                </ul>
+                <h1 className="text-2xl font-semibold inter-heading">Forgot Password</h1>
+                <div className="form-control">
+                    <label htmlFor="email" className="label font-semibold">Email:</label>
+                    <input type="email" name="email" value={email} placeholder="Ex: user@mail.com" onChange={(e) => setEmail(e.target.value)} className="input" />
+                </div>
+                <button type="submit" disabled={disabled} className="btn bg-primary text-white disabled:text-slate-100">Submit</button>
+                <HealthCheck />
+            </form>
+        </div>
     )
 }
 

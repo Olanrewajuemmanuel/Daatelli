@@ -1,6 +1,6 @@
 function ResearchPosts() {
     return (
-        <div>Research Posts</div>
+        <div className="ml-48 w-[calc(100%-128px)]">Research Posts</div>
     )
 }
 

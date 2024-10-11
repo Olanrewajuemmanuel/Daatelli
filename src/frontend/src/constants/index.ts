@@ -7,6 +7,11 @@ export const routesMap = {
   resetPassword: "/auth/reset-password",
   addFindings: "/findings/create",
   viewFinding: "/findings/view",
+  roadmap: "/roadmap",
+  about: "/about-daatelli",
+  developers: "/developers",
+  support: "/support",
+  privacyPolicy: "/privacy-policy",
 };
 
 export const globals = {

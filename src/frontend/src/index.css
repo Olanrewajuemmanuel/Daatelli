@@ -55,6 +55,13 @@
     background: white;
 }
 
+.backdrop-layers-light-1 {
+    filter: drop-shadow(0 0 10px rgb(255, 175, 123));
+}
+
+.backdrop-layers-light-2 {
+    filter: drop-shadow(0 0 10px rgb(115, 75, 109));
+}
 
 div[data-language="python"] span.code-keyword {
     color: #c50595;
@@ -67,4 +74,58 @@ div[data-language="python"] span.code-variable {
 
 div[data-language="python"] span.code-definition {
     color: #caa608;
+}
+
+.indicator-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    margin-inline: 0.2rem;
+
+}
+
+.indicator-icon::before {
+    content: "";
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #0778E7;
+    box-shadow: 0 0 0 rgba(7, 120, 231, 0.5);
+    animation: pulse-shadow 2s infinite;
+    animation-delay: 0.5s;
+}
+
+.indicator-icon:hover {
+    animation: none;
+}
+
+@-webkit-keyframes pulse-shadow {
+    0% {
+        -webkit-box-shadow: 0 0 0 0 rgba(7, 120, 231, 0.4);
+    }
+
+    70% {
+        -webkit-box-shadow: 0 0 0 10px rgba(7, 120, 231, 0);
+    }
+
+    100% {
+        -webkit-box-shadow: 0 0 0 0 rgba(7, 120, 231, 0);
+    }
+}
+
+@keyframes pulse-shadow {
+    0% {
+        -moz-box-shadow: 0 0 0 0 rgba(7, 120, 231, 0.4);
+        box-shadow: 0 0 0 0 rgba(7, 120, 231, 0.4);
+    }
+
+    70% {
+        -moz-box-shadow: 0 0 0 10px rgba(7, 120, 231, 0);
+        box-shadow: 0 0 0 10px rgba(7, 120, 231, 0);
+    }
+
+    100% {
+        -moz-box-shadow: 0 0 0 0 rgba(7, 120, 231, 0);
+        box-shadow: 0 0 0 0 rgba(7, 120, 231, 0);
+    }
 }

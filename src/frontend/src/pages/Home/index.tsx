@@ -50,7 +50,7 @@ function Home() {
                 <section className="mt-10">
                     <div className="flex flex-col items-center h-72 max-h-72 justify-center space-y-5">
                         <h1 className="inter-heading text-6xl max-w-[1100px] text-center">Quickly share <span className={currentGradientStyle}><TypeAnimation wrapper="span" speed={50} repeat={Infinity} sequence={dynamicHeroTexts} /></span></h1>
-                        <button className="btn bg-primary text-white" onClick={() => navigate(routesMap.login)}>Sign up</button>
+                        <button className="btn bg-primary text-white" onClick={() => navigate(routesMap.register)}>Sign up</button>
                     </div>
 
                     {/* Hero image/gif */}

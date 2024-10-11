@@ -1,6 +1,6 @@
 function UserProfileUpdates() {
     return (
-        <div className="rounded-md my-10">User profile updates</div>
+        <div className="w-full shadow-md my-10 p-5 text-sm">User profile updates</div>
     )
 }
 

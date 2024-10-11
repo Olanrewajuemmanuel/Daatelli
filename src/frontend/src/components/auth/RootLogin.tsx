@@ -39,19 +39,19 @@ function RootLogin({ onLogin, setCurrentUid }: { onLogin: (email: string, passwo
     return (
 
         <form onSubmit={handleSubmit}>
-            {error && <p>{error}</p>}
-            <div>
-                <label htmlFor="email">Email:</label>
-                <input type="email" name="email" placeholder="Ex: rootuser@mail.com" required onChange={handleChange}></input>
+            {error && <p className="text-red-500 text-sm">{error}</p>}
+            <div className="form-control">
+                <label htmlFor="email" className="label font-semibold">Email:</label>
+                <input type="email" name="email" placeholder="Ex: rootuser@mail.com" required className="input" onChange={handleChange}></input>
             </div>
-            <div>
-                <label htmlFor="password">Password:</label>
-                <input type="password" name="password" placeholder="Password" required onChange={handleChange}></input>
+            <div className="form-control">
+                <label htmlFor="password" className="label font-semibold">Password:</label>
+                <input type="password" name="password" placeholder="Password" required className="input" onChange={handleChange}></input>
             </div>
-            <div>
-                <input type="checkbox" name="rememberMe" checked={formData.rememberMe} onChange={e => setFormData(prev => ({ ...prev, rememberMe: e.target.checked }))}></input> Remember this device
+            <div className="flex items-center gap-x-2 my-3">
+                <input type="checkbox" name="rememberMe" checked={formData.rememberMe} className="checkbox checkbox-sm" onChange={e => setFormData(prev => ({ ...prev, rememberMe: e.target.checked }))}></input> Remember this device
             </div>
-            <button disabled={disabled} className="disabled:text-red-500">Submit</button>
+            <button disabled={disabled} className="btn bg-primary text-white disabled:text-slate-100">Submit</button>
         </form>
     )
 }

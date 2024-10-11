@@ -1,4 +1,5 @@
 import DatelliLogo from "../../assets/Daatelli.svg"
+import { routesMap } from "../../constants";
 
 function Footer() {
     const currentYear = new Date().getFullYear()
@@ -11,11 +12,11 @@ function Footer() {
             <div className="space-y-5">
                 <h3 className="inter-body text-3xl">Quick Links</h3>
                 <ul className="flex flex-wrap gap-5 font-semibold">
-                    <li><a href="/about-daatelli">About Daatelli</a></li>
-                    <li><a href="/developers">Developers</a></li>
-                    <li><a href="/roadmap">What's new? ✨</a></li>
-                    <li><a href="/privacy-policy">Privacy Policy</a></li>
-                    <li><a href="/support">Support</a></li>
+                    <li><a href={routesMap.about}>About Daatelli</a></li>
+                    <li><a href={routesMap.developers}>Developers</a></li>
+                    <li><a href={routesMap.roadmap}>What's new? ✨</a></li>
+                    <li><a href={routesMap.privacyPolicy}>Privacy Policy</a></li>
+                    <li><a href={routesMap.support}>Support</a></li>
                 </ul>
             </div>
         </footer>

@@ -6,6 +6,7 @@ import Select from "react-select";
 import CreatableSelect from "react-select/creatable";
 import { RegistrationData } from "../../types/types";
 import { registerMember, validateForm } from "../../actions/register";
+import { SYSTEM_MESSAGES } from "../../constants/utils";
 
 
 const fieldOptions: readonly {
@@ -101,111 +102,131 @@ function RegisterForm({ mode, onRegister }: { mode: RegisterType, onRegister: (e
         }
     }
     return (
-        <form onSubmit={(ev) => handleSubmit(ev, mode)}>
-            {formErrors.length > 0 &&
-
-                <div>
-                    Your registration was unsuccessful due to the following reasons:
-                    <ul>
-                        {formErrors.map(({ error }) =>
-                            <li key={error}>{error}</li>
-                        )}
-                    </ul>
-                </div>
-            }
-            {
-                mode === RegisterType.member ? (
-                    // Member form
-                    <div>
-                        <div>
-                            <label htmlFor="name">Name:<span>*</span></label>
-                            <input type="text" name="name" onChange={handleInputChange} />
-                        </div>
-                        <div>
-                            <label htmlFor="email">Email:<span>*</span></label>
-                            <input type="text" name="email" onChange={handleInputChange} />
-                            <input type="checkbox" name="work-email" onChange={handleInputChange} />
-                            <label htmlFor="email">This is an institutional email<InfoItem message="The chances of becoming a researcher or enjoying other benefits for example, being a community member increases when you provide an institutional email. We only verify this email once when you provide it by sending a verification mail. We won't mail you again after unless you change your settings." /></label>
-                        </div>
-                        <div>
-                            <label htmlFor="field">Field:<span>*</span></label>
-                            <CreatableSelect placeholder="Select main field" options={fieldOptions} onChange={handleSelectField} />
-                        </div>
-                        <div>
-                            <label htmlFor="interests">Interests:<InfoItem message="You may select up to 5 other fields that may interest you apart from your main field" /></label>
-                            <CreatableSelect placeholder="Select interests" options={fieldOptions} value={formData.interests} onChange={handleSelectMultiple} isMulti isOptionDisabled={() => formData.interests!.length >= 5} />
-
-                        </div>
-                        <div>
-                            <label htmlFor="password1">Password:</label>
-                            <input type="password" name="password1" onChange={handleInputChange} />
-                        </div>
-                        <div>
-                            <label htmlFor="password2">Confirm password:</label>
-                            <input type="password" name="password2" onChange={handleInputChange} />
-                        </div>
-
-                        <div>
-                            <label htmlFor="refs">How did you learn about us:</label>
-                            <Select options={referralOptions} defaultValue={referralOptions[0]} onChange={handleSelectRef} />
-                        </div>
-                        <div>
-                            <button type="submit" disabled={disabled} className="disabled:bg-red-400">Submit</button>
-                        </div>
+        <div className="inter-body max-w-[600px] mx-auto">
+            <form onSubmit={(ev) => handleSubmit(ev, mode)} className="mt-3">
+                {formErrors.length > 0 &&
+                    <div className="bg-error text-white p-2 rounded-md">
+                        {SYSTEM_MESSAGES['register-failure']}
+                        <ul>
+                            {formErrors.map(({ error }) =>
+                                <li key={error}>{error}</li>
+                            )}
+                        </ul>
                     </div>
-                ) : (
-                    // Researcher form
-                    <div>
+                }
+                {
+                    mode === RegisterType.member ? (
+                        // Member form
                         <div>
-                            <label htmlFor="name">Name:<span>*</span></label>
-                            <input type="text" name="name" onChange={handleInputChange} />
-                        </div>
-                        <div>
-                            <label htmlFor="institution">Institution:<span>*</span></label>
-                            <input type="text" name="institution" onChange={handleInputChange} />
-                        </div>
-                        <div>
-                            <label htmlFor="affiliations">Other affiliations:<InfoItem message="This may include other institutions or organizations you work with directly or indirectly. Separate each affiliate with a comma." /></label>
-                            <input type="text" name="affiliations" onChange={handleInputChange} />
-                        </div>
-                        <div>
-                            <label htmlFor="email">Email:<span>*</span></label>
-                            <input type="text" name="email" onChange={handleInputChange} />
-                            <input type="checkbox" name="work-email" onChange={handleInputChange} />
-                            <label htmlFor="email">This is an institutional email<InfoItem message="The chances of becoming a researcher or enjoying other benefits for example, being a community member increases when you provide an institutional email. We only verify this email once when you provide it by sending a verification mail. We won't mail you again after unless you change your settings." /></label>
-                        </div>
-                        <div>
-                            <label htmlFor="researcher-type">What type of researcher are you:<span>*</span></label>
-                            <CreatableSelect placeholder="Select..." options={researcherTypes} onChange={handleSelectResearcherType} />
-                        </div>
-                        <div>
-                            <label htmlFor="field">Research field:<span>*</span></label>
-                            <CreatableSelect placeholder="Select main field" options={fieldOptions} onChange={handleSelectField} />
-                        </div>
-                        <div>
-                            <label htmlFor="interests">Interests:<InfoItem message="You may select up to 5 other fields that may interest you apart from your main field" /></label>
-                            <CreatableSelect placeholder="Select interests" options={fieldOptions} value={formData.interests} onChange={handleSelectMultiple} isMulti isOptionDisabled={() => formData.interests!.length >= 5} />
-                        </div>
-                        <div>
-                            <label htmlFor="password1">Password:</label>
-                            <input type="password" name="password1" onChange={handleInputChange} />
-                        </div>
-                        <div>
-                            <label htmlFor="password2">Confirm password:</label>
-                            <input type="password" name="password2" onChange={handleInputChange} />
-                        </div>
+                            <div className="form-control my-4 space-y-3">
+                                <label htmlFor="name" className="font-semibold">Name:<span>*</span></label>
+                                <input type="text" name="name" id="name" className="input " placeholder="Enter your full name" onChange={handleInputChange} />
+                            </div>
+                            <div className="form-control my-4 space-y-3">
+                                <label htmlFor="email" className="font-semibold">Email:<span>*</span></label>
+                                <input type="text" name="email" id="email" className="input " placeholder="Enter your email" onChange={handleInputChange} />
+                                <div className="inline-flex gap-2">
+                                    <input type="checkbox" className="checkbox" id="work-email" name="work-email" onChange={handleInputChange} />
+                                    <label htmlFor="work-email">This is an institutional email<InfoItem message="The chances of becoming a researcher or enjoying other benefits for example, being a community member increases when you provide an institutional email. We only verify this email once when you provide it by sending a verification mail. We won't mail you again after unless you change your settings." /></label>
+                                </div>
 
-                        <div>
-                            <label htmlFor="refs">How did you learn about us:</label>
-                            <Select options={referralOptions} defaultValue={referralOptions[0]} onChange={handleSelectRef} />
+                            </div>
+                            <div className="form-control my-4 space-y-3">
+                                <label htmlFor="field" className="font-semibold">Field:<span>*</span></label>
+                                <CreatableSelect placeholder="Select main field" classNames={{
+                                    control: () => 'select'
+                                }} options={fieldOptions} onChange={handleSelectField} />
+                            </div>
+                            <div className="form-control my-4 space-y-3">
+                                <label htmlFor="interests" className="font-semibold">Interests:<InfoItem message="You may select up to 5 other fields that may interest you apart from your main field" /></label>
+                                <CreatableSelect placeholder="Select interests" classNames={{
+                                    control: () => 'select'
+                                }} options={fieldOptions} value={formData.interests} onChange={handleSelectMultiple} isMulti isOptionDisabled={() => formData.interests!.length >= 5} />
+
+                            </div>
+                            <div className="form-control my-4 space-y-3">
+                                <label htmlFor="password1" className="font-semibold">Password:<span>*</span></label>
+                                <input type="password" name="password1" id="password1" className="input " placeholder="Enter your password" onChange={handleInputChange} />
+                            </div>
+                            <div className="form-control my-4 space-y-3">
+                                <label htmlFor="password2" className="font-semibold">Confirm password:<span>*</span></label>
+                                <input type="password" name="password2" id="password2" className="input " placeholder="Confirm your password" onChange={handleInputChange} />
+                            </div>
+
+                            <div className="form-control my-4 space-y-3">
+                                <label htmlFor="refs" className="font-semibold">How did you learn about us:</label>
+                                <Select options={referralOptions} classNames={{
+                                    control: () => 'select'
+                                }} defaultValue={referralOptions[0]} onChange={handleSelectRef} />
+                            </div>
+                            <div className="my-4">
+                                <button type="submit" disabled={disabled} className="btn bg-primary text-white disabled:text-slate-100">Submit</button>
+                            </div>
                         </div>
+                    ) : (
+                        // Researcher form
                         <div>
-                            <button type="submit" disabled={disabled} className="disabled:bg-red-400">Submit</button>
+                            <div className="form-control my-4 space-y-3">
+                                <label htmlFor="name" className="font-semibold">Name:<span>*</span></label>
+                                <input type="text" name="name" id="name" placeholder="Enter your full name" className="input" onChange={handleInputChange} />
+                            </div>
+                            <div className="form-control my-4 space-y-3">
+                                <label htmlFor="institution" className="font-semibold">Institution:<span>*</span></label>
+                                <input type="text" name="institution" id="institution" placeholder="Ex: University of Ibadan, Nigeria" className="input" onChange={handleInputChange} />
+                            </div>
+                            <div className="form-control my-4 space-y-3">
+                                <label htmlFor="affiliations" className="font-semibold">Other affiliations:<InfoItem message="This may include other institutions or organizations you work with directly or indirectly. Separate each affiliate with a comma." /></label>
+                                <input type="text" name="affiliations" placeholder="Ex: Greenway Corp., Zxebs Ltd" className="input" onChange={handleInputChange} />
+                            </div>
+                            <div className="form-control my-4 space-y-3">
+                                <label htmlFor="email" className="font-semibold">Email:<span>*</span></label>
+                                <input type="text" name="email" className="input" onChange={handleInputChange} />
+                                <div className="inline-flex gap-2">
+                                    <input type="checkbox" className="checkbox" id="work-email" name="work-email" onChange={handleInputChange} />
+                                    <label htmlFor="work-email">This is an institutional email<InfoItem message="The chances of becoming a researcher or enjoying other benefits for example, being a community member increases when you provide an institutional email. We only verify this email once when you provide it by sending a verification mail. We won't mail you again after unless you change your settings." /></label>
+                                </div>
+                            </div>
+                            <div className="form-control my-4 space-y-3">
+                                <label htmlFor="researcher-type" className="font-semibold">What type of researcher are you:<span>*</span></label>
+                                <CreatableSelect placeholder="Select..." classNames={{
+                                    control: () => 'select'
+                                }} options={researcherTypes} onChange={handleSelectResearcherType} />
+                            </div>
+                            <div className="form-control my-4 space-y-3">
+                                <label htmlFor="field" className="font-semibold">Research field:<span>*</span></label>
+                                <CreatableSelect placeholder="Select main field" classNames={{
+                                    control: () => 'select'
+                                }} options={fieldOptions} onChange={handleSelectField} />
+                            </div>
+                            <div className="form-control my-4 space-y-3">
+                                <label htmlFor="interests" className="font-semibold">Interests:<InfoItem message="You may select up to 5 other fields that may interest you apart from your main field" /></label>
+                                <CreatableSelect placeholder="Select interests" classNames={{
+                                    control: () => 'select'
+                                }} options={fieldOptions} value={formData.interests} onChange={handleSelectMultiple} isMulti isOptionDisabled={() => formData.interests!.length >= 5} />
+                            </div>
+                            <div className="form-control my-4 space-y-3">
+                                <label htmlFor="password1" className="font-semibold">Password:</label>
+                                <input type="password" name="password1" id="password1" className="input" onChange={handleInputChange} />
+                            </div>
+                            <div className="form-control my-4 space-y-3">
+                                <label htmlFor="password2" className="font-semibold">Confirm password:</label>
+                                <input type="password" name="password2" id="password2" className="input" onChange={handleInputChange} />
+                            </div>
+
+                            <div className="form-control my-4 space-y-3">
+                                <label htmlFor="refs" className="font-semibold">How did you learn about us:</label>
+                                <Select options={referralOptions} defaultValue={referralOptions[0]} classNames={{
+                                    control: () => 'select'
+                                }} onChange={handleSelectRef} />
+                            </div>
+                            <div className="my-4">
+                                <button type="submit" disabled={disabled} className="btn bg-primary text-white disabled:text-slate-100">Submit</button>
+                            </div>
                         </div>
-                    </div>
-                )
-            }
-        </form>
+                    )
+                }
+            </form>
+        </div>
     )
 }
 

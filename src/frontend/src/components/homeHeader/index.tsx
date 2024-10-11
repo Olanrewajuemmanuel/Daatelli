@@ -9,14 +9,14 @@ function HomeHeader({ cookies }: { cookies: any }) {
 
     return (
         <header className="inter-body flex items-center max-h-64 py-2 border-b border-gray-200 opacity-80">
-            <a href="/">
+            <a href={routesMap.home}>
                 <img src={DatelliLogo} alt="Daatelli Logo" width={300} className="mx-auto" />
             </a>
             <div className="mr-8 w-full flex items-center justify-between">
                 <ul className="flex flex-row gap-8 font-semibold">
-                    <li><a href="/about-daatelli">About Daatelli</a></li>
-                    <li><a href="/developers">Developers</a></li>
-                    <li><a href="/roadmap">What's new? ✨</a></li>
+                    <li><a href={routesMap.about}>About Daatelli</a></li>
+                    <li><a href={routesMap.developers}>Developers</a></li>
+                    <li><a href={routesMap.roadmap}>What's new? <span className="indicator-icon"></span></a></li>
                 </ul>
                 <div>
                     {cookies.access ? (

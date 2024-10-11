@@ -11,7 +11,8 @@ module.exports = {
       colors: {
         "frosted-glass": "rgba(255, 255, 255, 0.8)",
         "primary": "#0778E7",
-        "shade-bg": "#EEE"
+        "shade-bg": "#EEE",
+        "body": "#222",
       },
       backgroundImage: {
         "noise": "url('./assets/noisy-background.jpg')",
