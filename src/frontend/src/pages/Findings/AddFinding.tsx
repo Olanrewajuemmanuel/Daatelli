@@ -5,6 +5,7 @@ import MultimediaFlow from "../../components/step-form/MultimediaFlow";
 import CodeFlow from "../../components/step-form/CodeFlow";
 import HealthCheck from "../../components/healthCheck";
 import NavBar from "../../components/uiEnhancements/NavBar";
+import MetaTags from "react-meta-tags";
 
 function AddFinding() {
     const [searchParams] = useSearchParams()
@@ -35,16 +36,21 @@ function AddFinding() {
     }
 
     return (
-        <div>
-            <NavBar onMessagesUpdate={() => { }} />
-            <div className="max-w-2xl mx-auto p-8 rounded-lg inter-body border border-gray-200">
-                <h2 className="text-2xl font-semibold">Add '{searchParams.get('type')}' to your Findings</h2>
-                <div className="my-8">
-                    {display}
+        <>
+            <MetaTags>
+                <title>Daatelli | Add Finding</title>
+            </MetaTags>
+            <div>
+                <NavBar onMessagesUpdate={() => { }} />
+                <div className="max-w-2xl mx-auto p-8 rounded-lg inter-body border border-gray-200">
+                    <h2 className="text-2xl font-semibold">Add '{searchParams.get('type')}' to your Findings</h2>
+                    <div className="my-8">
+                        {display}
+                    </div>
                 </div>
+                <HealthCheck />
             </div>
-            <HealthCheck />
-        </div>
+        </>
     );
 }
 

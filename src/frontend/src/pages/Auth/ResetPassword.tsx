@@ -2,6 +2,7 @@ import { ChangeEvent, FormEvent, useEffect, useState } from "react"
 import { useSearchParams } from "react-router-dom";
 import { sendResetPasswordConfirmation } from "../../actions/auth";
 import HealthCheck from "../../components/healthCheck";
+import MetaTags from "react-meta-tags";
 
 function ResetPassword() {
     const [disabled, setDisabled] = useState(true)
@@ -47,20 +48,25 @@ function ResetPassword() {
     if (!searchParams.get('token')) return <div>Invalid or expired token</div>
     if (formSuccess) return <div>Your password has been successfully changed</div>
     return (
-        <form onSubmit={handleSubmit}>
-            {error && <p>{error}</p>}
-            <h2>Change your password</h2>
-            <div>
-                <label htmlFor="oldPassword">Old password:</label>
-                <input type="password" name="oldPassword" value={formData.oldPassword} onChange={handleChange} />
-            </div>
-            <div>
-                <label htmlFor="newPassword">New password:</label>
-                <input type="password" name="newPassword" value={formData.newPassword} onChange={handleChange} />
-            </div>
-            <button type="submit" disabled={disabled} className="disabled:text-red-100">Submit</button>
-            <HealthCheck />
-        </form>
+        <>
+            <MetaTags>
+                <title>Daatelli | Reset Password</title>
+            </MetaTags>
+            <form onSubmit={handleSubmit}>
+                {error && <p>{error}</p>}
+                <h2>Change your password</h2>
+                <div>
+                    <label htmlFor="oldPassword">Old password:</label>
+                    <input type="password" name="oldPassword" value={formData.oldPassword} onChange={handleChange} />
+                </div>
+                <div>
+                    <label htmlFor="newPassword">New password:</label>
+                    <input type="password" name="newPassword" value={formData.newPassword} onChange={handleChange} />
+                </div>
+                <button type="submit" disabled={disabled} className="disabled:text-red-100">Submit</button>
+                <HealthCheck />
+            </form>
+        </>
     )
 }
 

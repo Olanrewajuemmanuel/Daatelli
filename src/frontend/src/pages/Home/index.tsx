@@ -1,7 +1,7 @@
 import { useCookies } from "react-cookie";
 import { TypeAnimation } from "react-type-animation";
 import HomeHeader from "../../components/homeHeader";
-import { redirect, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { routesMap } from "../../constants";
 import Footer from "../../components/footer";
 import { useEffect, useState } from "react";
