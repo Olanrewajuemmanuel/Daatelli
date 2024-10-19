@@ -33,7 +33,6 @@ function CodeFlow({ onCreateFinding }: { onCreateFinding: (findingId: string) =>
         if (step < 3) {
             setStep(step + 1)
         } else {
-            console.log(data);
 
         }
 

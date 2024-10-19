@@ -52,7 +52,7 @@ function UploadCodeFileStep() {
             {
                 files.length > 0 && (
                     <div>
-                        <input {...register('privateCopy')} type="checkbox" name="privateCopy" />
+                        <input {...register('privateCopy')} type="checkbox" className="checkbox checkbox-sm" name="privateCopy" />
                         <label htmlFor="privateCopy">Upload as a private copy <InfoItem message="Private copies are only visible to your account and can be viewed in this Finding details once created." /></label>
                         {errors && <InputError message={errors.privateCopy?.message?.toString()} />}
                     </div>

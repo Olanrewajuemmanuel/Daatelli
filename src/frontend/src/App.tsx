@@ -19,6 +19,7 @@ import LoadingComponent from "./components/loading/LoadingComponent";
 import Developers from "./pages/Developers";
 import About from "./pages/About";
 import Organisation from "./pages/Organisation";
+import { FeaturesContext } from "./contexts";
 
 const routes = [
   {
@@ -71,9 +72,11 @@ const routes = [
 const router = createBrowserRouter(routes);
 function App() {
   return <CookiesProvider defaultSetOptions={{ path: '/' }}>
-    <Suspense fallback={<LoadingComponent />}>
-      <RouterProvider router={router}></RouterProvider>
-    </Suspense>
+    <FeaturesContext.Provider value={['auth', 'feed', 'profile', 'settings', 'findings']}>
+      <Suspense fallback={<LoadingComponent />}>
+        <RouterProvider router={router}></RouterProvider>
+      </Suspense>
+    </FeaturesContext.Provider>
   </CookiesProvider>;
 }
 

@@ -70,17 +70,18 @@ function FindingsFormElement() {
 
 
     return (
-        <div className="border">
-            <label htmlFor="findings">Add your findings:<InfoItem message={`Share your findings with the world! Drag and drop to re-order your findings.`} linkOptions={{ text: `Learn more on how to make your findings more presentable using the ${globals.appName} way`, link: '/' }} /></label>
-            <input type="text" name="findings" onChange={handleChange} value={findingsText} />
+        <div className="form-control">
+            <label htmlFor="findings" className="label">Add your findings:<InfoItem message={`Share your findings with the world! Drag and drop to re-order your findings.`} linkOptions={{ text: `Learn more on how to make your findings more presentable using the ${globals.appName} way`, link: '/' }} /></label>
+            <input type="text" name="findings" placeholder="Add your Findings..." onChange={handleChange} value={findingsText} className="input input-bordered" />
             {errors && <InputError message={errors.findings?.message} />}
-            <div hidden={!findingsText} className="cursor-pointer" >
-                {/* TODO: Own component */}
-                <p onClick={handleAddition}>{findingsText}</p>
+            <div hidden={!findingsText} className="shadow-md bg-white z-99 p-3 space-y-3 text-wrap overflow-hidden">
+                <div className="flex justify-between">
+                    <p><span className="text-slate-300">Finding:</span> {findingsText}</p>
+                    <button className="btn btn-sm btn-outline" onClick={handleAddition}>Add Finding</button>
+                </div>
                 <Select options={badgesOptions} defaultValue={badgesOptions[0]} onChange={handleBadgeChange} />
-                <button type="button" onClick={() => setDisplayCite(true)} hidden={displayCite}>Add Citation</button>
+                <button type="button" className="btn btn-sm btn-outline" onClick={() => setDisplayCite(!displayCite)}>{displayCite ? 'Hide' : 'Add'} Citation(s)</button>
                 {displayCite && <AddCitations citations={findingsCitation} onCitationUpdate={handleCitationUpdate} />}
-                <span>EnterIcon</span>
             </div>
             <FindingsDragAndDrop selectedFindings={findings} setFindings={setFindings} />
         </div>

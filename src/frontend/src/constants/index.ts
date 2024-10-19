@@ -23,14 +23,15 @@ export const globals = {
 export const serverRoutes = {
   login: `login`,
   logout: `logout`,
-  userProfiles: `user-profiles`,
-  register: `register`,
+  users: `users`,
   userFindings: `user-findings`,
+  me: `users/me`,
+  associations: `users/associations`,
   health: `health`,
 } as const;
 
 export function getURL(route: keyof typeof serverRoutes) {
-  if (route === serverRoutes.login || route === serverRoutes.logout || route === serverRoutes.register) {
+  if (route === serverRoutes.login || route === serverRoutes.logout) {
     // Auth routes are prefixed with 'auth'
     return `/api/v1/auth/${route}`;
   } else if (route === serverRoutes.health) {

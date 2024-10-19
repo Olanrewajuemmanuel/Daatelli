@@ -1,11 +1,14 @@
-import { ChangeEvent, Dispatch, FormEvent, useEffect, useState } from "react"
+import { ChangeEvent, Dispatch, FormEvent, useContext, useEffect, useState } from "react"
 import { FormData } from "../../types/types";
+import { FeaturesContext } from "../../contexts";
+import ComingSoonButton from "../comingSoon/button";
 
 
 function RootLogin({ onLogin, setCurrentUid }: { onLogin: (email: string, password: string, rememberMe: boolean) => Promise<void>, setCurrentUid: Dispatch<React.SetStateAction<string>> }) {
     const [disabled, setDisabled] = useState(true)
     const [error, setError] = useState('')
     const [formData, setFormData] = useState<FormData>({ email: '', password: '', rememberMe: false });
+    const devFeatures = useContext(FeaturesContext)
 
     useEffect(() => {
         if (formData?.email && formData.password) {
@@ -25,6 +28,11 @@ function RootLogin({ onLogin, setCurrentUid }: { onLogin: (email: string, passwo
     const handleSubmit = async (e: FormEvent) => {
         // Login logic
         e.preventDefault();
+        // Check if feature is under development
+        if (devFeatures.includes('auth')) {
+            setError('Feature is under development')
+            return
+        }
         try {
             setDisabled(true) // deactivate button on requests
             await onLogin(formData.email, formData.password, formData.rememberMe as boolean)
@@ -52,6 +60,7 @@ function RootLogin({ onLogin, setCurrentUid }: { onLogin: (email: string, passwo
                 <input type="checkbox" name="rememberMe" checked={formData.rememberMe} className="checkbox checkbox-sm" onChange={e => setFormData(prev => ({ ...prev, rememberMe: e.target.checked }))}></input> Remember this device
             </div>
             <button disabled={disabled} className="btn bg-primary text-white disabled:text-slate-100">Submit</button>
+
         </form>
     )
 }

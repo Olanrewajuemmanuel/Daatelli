@@ -10,14 +10,14 @@ function RoadMap() {
         <HomeHeader cookies={cookies} />
         <main className="inter-body flex-grow">
             <header className="h-40 mb-5 flex items-center justify-center bg-gradient-to-r from-[#42275a] to-[#734b6d]">
-                <input type="text" placeholder="Search for more news on Daatelli..." className="input input-bordered w-[80%]" />
+                <input type="text" placeholder="Search for more news on Daatelli..." className="input input-bordered w-[90%]" />
             </header>
-            <div className="px-10">
+            <div className="lg:mx-10 mx-5 lg:mx-0">
                 <BreadcrumbsNav currentPage="Roadmap" parentPage="News" />
             </div>
-            <section className="px-10 my-5">
+            <section className="my-5 mx-5 lg:mx-0 lg:mx-10 text-justify text-body">
                 <div>
-                    <h1 className="text-3xl font-semibold inter-heading">What are we building?</h1>
+                    <h1 className="text-xl lg:text-3xl font-semibold inter-heading">What are we building?</h1>
                     <div className="flex items-center gap-x-3 text-sm my-4 user-select-none">
                         <div className="avatar">
                             <div className="rounded-full w-10">
@@ -30,7 +30,7 @@ function RoadMap() {
                         </div>
                     </div>
                 </div>
-                <div className="text-body my-5 leading-relaxed" data-id="roadmap-content">
+                <div className="text-body text-base my-5 leading-relaxed" data-id="roadmap-content">
                     <p className="my-3">Here at Daatelli, we are all about giving academic authors a platform to present their work and get connected to other experts in their field as easy as it is to find a long-lost cousin on Facebook.</p>
                     <p className="my-3">We recognise two "issues" with the academia sharing space:</p>
                     <ul className="my-3">
@@ -42,9 +42,9 @@ function RoadMap() {
                         </li>
                     </ul>
                     <p className="my-3">Our mission is simple: to create a platform where both authors and researchers get the best of both worlds, without the hassle of gatekeeping, convoluted processes, or endless paywalls.</p>
-                    <p className="my-3">Did we also mention that you have access to powerful ML analytics to help you gain insights from your research and that of others?</p>
+                    <p className="my-3">Did I also mention that you have access to powerful ML analytics to help you gain insights from your research and that of others?</p>
                     <div>
-                        <h2 className="text-2xl font-semibold">The work</h2>
+                        <h2 className="text-xl lg:text-2xl font-semibold">The work</h2>
                         <span className="divider italic">The Foundation</span>
                         <p className="my-3">1. First things first, our early focus will be on building an intuitive and easy-to-use platform for authors to upload their work and researchers to read and engage with them.</p>
                         <p className="my-3">2. We recognise that recognition is everyting in the research space, so we are creating a system that tracks citations and rewards you with those sweet, sweet citation points.</p>
@@ -62,7 +62,7 @@ function RoadMap() {
                         <p className="my-3">3. Peer review systems</p>
                         <p className="my-3">Many startups usually have this stuff, so here...</p>
                         <p className="my-3 font-semibold">Our timeline:</p>
-                        <ul className="timeline my-5">
+                        <ul className="timeline timeline-vertical lg:timeline-horizontal my-5">
                             <li>
                                 <div className="timeline-start font-semibold">The Foundation (Q4 2024)</div>
                                 <div className="timeline-middle">
@@ -107,7 +107,7 @@ function RoadMap() {
                         </ul>
                     </div>
                     <div>
-                        <h2 className="text-2xl font-semibold">Join Us in building the future of research</h2>
+                        <h2 className="text-xl lg:text-2xl font-semibold">Join Us in building the future of research</h2>
                         <p className="my-3">As we continue to evolve the platform for academic researchers, we know we can't do this alone - and honestly, we don't want to. We will like you to join us.</p>
                         <p className="my-3"> Whether you're a researcher, developer, or just someone passionate about making knowledge more accessible, there are ways for you to get involved:</p>
                         <ul className="my-3">

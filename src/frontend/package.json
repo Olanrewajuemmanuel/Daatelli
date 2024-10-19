@@ -16,6 +16,7 @@
     "react-cookie": "^7.2.0",
     "react-dom": "^18.3.1",
     "react-hook-form": "^7.52.2",
+    "react-meta-tags": "^1.0.1",
     "react-router-dom": "^6.26.0",
     "react-scripts": "5.0.1",
     "react-select": "^5.8.0",
@@ -31,8 +32,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "npx eslint src/* --ext ts,jsx,js,tsx",
-    "lint:fix": "npx eslint src/* --fix",
-    "server": "json-server --watch ./src/lib/db.json --port 7860"
+    "lint:fix": "npx eslint src/* --fix"
   },
   "eslintConfig": {
     "extends": []

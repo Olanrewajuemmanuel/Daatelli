@@ -14,6 +14,7 @@ import ScreenUpdateDisplay from "../../components/uiEnhancements/ScreenUpdateDis
 import { idGenerator } from "../../constants/utils";
 import LoadingComponent from "../../components/loading/LoadingComponent";
 import HealthCheck from "../../components/healthCheck";
+import Modal from "../../components/uiEnhancements/Modal";
 
 const UserProfileUpdates = lazy(() => import("../../components/feed/UserProfileUpdates"));
 
@@ -61,6 +62,7 @@ function Feed() {
                     </div>
                 </main>
                 {displayMode && <ScreenUpdateDisplay mode={clickMode} toggleDisplay={setDisplayMode} />}
+                <Modal toggleDisplay={setDisplayMode} id="daatelli_modal_info" />
                 <HealthCheck />
             </div>
         </UserContext.Provider>

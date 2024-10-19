@@ -48,9 +48,9 @@ function ForgotPassword() {
 
 
     return (
-        <div className="inter-body absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/3 min-w-[880px]">
+        <div className="inter-body absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/3 w-full lg:max-w-[880px] px-10">
             <form onSubmit={handleSubmit} className="w-4/5 space-y-6">
-                <div>{formSuccess}<Link to={routesMap.login} className="ml-2 link">Go to Login</Link></div>
+                <div>{formSuccess}<Link to={routesMap.login} className="ml-2 link">Back to Login</Link></div>
                 <ul>
                     {formErrors.length > 0 && formErrors.map(({ error }, idx) =>
                         <li key={idx}>{error}</li>
