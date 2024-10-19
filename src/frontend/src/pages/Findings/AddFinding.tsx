@@ -4,6 +4,8 @@ import { routesMap } from "../../constants";
 import MultimediaFlow from "../../components/step-form/MultimediaFlow";
 import CodeFlow from "../../components/step-form/CodeFlow";
 import HealthCheck from "../../components/healthCheck";
+import NavBar from "../../components/uiEnhancements/NavBar";
+import MetaTags from "react-meta-tags";
 
 function AddFinding() {
     const [searchParams] = useSearchParams()
@@ -34,20 +36,22 @@ function AddFinding() {
     }
 
     return (
-        <div>
-            <nav>
-                <a href="/feed">Air data</a>
-            </nav>
+        <>
+            <MetaTags>
+                <title>Daatelli | Add Finding</title>
+            </MetaTags>
             <div>
-                <h2>Add '{searchParams.get('type')}'</h2>
-                {display}
+                <NavBar onMessagesUpdate={() => { }} />
+                <div className="max-w-2xl mx-auto p-8 rounded-lg inter-body border border-gray-200">
+                    <h2 className="text-2xl font-semibold">Add '{searchParams.get('type')}' to your Findings</h2>
+                    <div className="my-8">
+                        {display}
+                    </div>
+                </div>
+                <HealthCheck />
             </div>
-            <HealthCheck />
-        </div>
+        </>
     );
-
-
-
 }
 
 export default AddFinding

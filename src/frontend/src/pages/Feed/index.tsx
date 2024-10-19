@@ -14,6 +14,8 @@ import ScreenUpdateDisplay from "../../components/uiEnhancements/ScreenUpdateDis
 import { idGenerator } from "../../constants/utils";
 import LoadingComponent from "../../components/loading/LoadingComponent";
 import HealthCheck from "../../components/healthCheck";
+import Modal from "../../components/uiEnhancements/Modal";
+import MetaTags from "react-meta-tags";
 
 const UserProfileUpdates = lazy(() => import("../../components/feed/UserProfileUpdates"));
 
@@ -46,24 +48,30 @@ function Feed() {
     }
 
     return (
-        <UserContext.Provider value={user!}>
-            <MessagesBanner messages={messages} onUpdate={dispatch} />
-            <NavBar onMessagesUpdate={dispatch} />
-            <div className="flex px-4 py-2 inter-body md:mt-8">
-                <SideBar />
-                <main className="flex justify-between w-full">
-                    <ResearchPosts />
-                    <div className="min-w-56">
-                        <AddResearchButton onSetScreenState={handleScreenState} />
-                        <Suspense fallback={<LoadingComponent />}>
-                            <UserProfileUpdates />
-                        </Suspense>
-                    </div>
-                </main>
-                {displayMode && <ScreenUpdateDisplay mode={clickMode} toggleDisplay={setDisplayMode} />}
-                <HealthCheck />
-            </div>
-        </UserContext.Provider>
+        <>
+            <MetaTags>
+                <title>Daatelli | Feed</title>
+            </MetaTags>
+            <UserContext.Provider value={user!}>
+                <MessagesBanner messages={messages} onUpdate={dispatch} />
+                <NavBar onMessagesUpdate={dispatch} />
+                <div className="flex px-4 py-2 inter-body md:mt-8">
+                    <SideBar />
+                    <main className="flex justify-between w-full">
+                        <ResearchPosts />
+                        <div className="min-w-56">
+                            <AddResearchButton onSetScreenState={handleScreenState} />
+                            <Suspense fallback={<LoadingComponent />}>
+                                <UserProfileUpdates />
+                            </Suspense>
+                        </div>
+                    </main>
+                    {displayMode && <ScreenUpdateDisplay mode={clickMode} toggleDisplay={setDisplayMode} />}
+                    <Modal toggleDisplay={setDisplayMode} id="daatelli_modal_info" />
+                    <HealthCheck />
+                </div>
+            </UserContext.Provider>
+        </>
     )
 
 }

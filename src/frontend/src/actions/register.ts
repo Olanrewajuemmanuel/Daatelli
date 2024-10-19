@@ -66,7 +66,7 @@ export function validateForm(
 export async function registerMember(validatedForm: RegistrationData) {
   try {
     const response = await axiosPublicClient.post(
-      serverRoutes.register,
+      serverRoutes.users,
       validatedForm
     );
     return await response.data;

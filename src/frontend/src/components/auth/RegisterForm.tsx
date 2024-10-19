@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useContext, useEffect, useState } from "react";
 import professions from "../../constants/fields"
 import { RegisterType } from "../../types/enums"
 import InfoItem from "../uiEnhancements/InfoItem"
@@ -7,6 +7,8 @@ import CreatableSelect from "react-select/creatable";
 import { RegistrationData } from "../../types/types";
 import { registerMember, validateForm } from "../../actions/register";
 import { SYSTEM_MESSAGES } from "../../constants/utils";
+import { FeaturesContext } from "../../contexts";
+import ComingSoonButton from "../comingSoon/button";
 
 
 const fieldOptions: readonly {
@@ -34,6 +36,11 @@ function RegisterForm({ mode, onRegister }: { mode: RegisterType, onRegister: (e
     })
     const [disabled, setDisabled] = useState(false);
     const [formErrors, setFormErrors] = useState<{ error: string; label: string; }[]>([])
+    const devFeatures = useContext(FeaturesContext)
+
+    useEffect(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' })
+    }, [formErrors])
 
 
     const handleSelectField = (option: unknown) => {
@@ -80,6 +87,11 @@ function RegisterForm({ mode, onRegister }: { mode: RegisterType, onRegister: (e
 
     const handleSubmit = async (e: FormEvent, mode: RegisterType) => {
         e.preventDefault();
+        // Check if feature is under development
+        if (devFeatures.includes('auth')) {
+            setFormErrors([{ error: 'Feature is under development', label: '' }])
+            return
+        }
         // Handle member signup submission
 
         const validate = validateForm(formData as RegistrationData, mode)
@@ -103,13 +115,13 @@ function RegisterForm({ mode, onRegister }: { mode: RegisterType, onRegister: (e
     }
     return (
         <div className="inter-body max-w-[600px] mx-auto">
-            <form onSubmit={(ev) => handleSubmit(ev, mode)} className="mt-3">
+            <form onSubmit={(ev) => handleSubmit(ev, mode)} className="my-5">
                 {formErrors.length > 0 &&
                     <div className="bg-error text-white p-2 rounded-md">
                         {SYSTEM_MESSAGES['register-failure']}
                         <ul>
                             {formErrors.map(({ error }) =>
-                                <li key={error}>{error}</li>
+                                <li key={error} className="text-sm">{error}</li>
                             )}
                         </ul>
                     </div>
@@ -126,7 +138,7 @@ function RegisterForm({ mode, onRegister }: { mode: RegisterType, onRegister: (e
                                 <label htmlFor="email" className="font-semibold">Email:<span>*</span></label>
                                 <input type="text" name="email" id="email" className="input " placeholder="Enter your email" onChange={handleInputChange} />
                                 <div className="inline-flex gap-2">
-                                    <input type="checkbox" className="checkbox" id="work-email" name="work-email" onChange={handleInputChange} />
+                                    <input type="checkbox" className="checkbox checkbox-sm" id="work-email" name="work-email" onChange={handleInputChange} />
                                     <label htmlFor="work-email">This is an institutional email<InfoItem message="The chances of becoming a researcher or enjoying other benefits for example, being a community member increases when you provide an institutional email. We only verify this email once when you provide it by sending a verification mail. We won't mail you again after unless you change your settings." /></label>
                                 </div>
 
@@ -159,9 +171,11 @@ function RegisterForm({ mode, onRegister }: { mode: RegisterType, onRegister: (e
                                     control: () => 'select'
                                 }} defaultValue={referralOptions[0]} onChange={handleSelectRef} />
                             </div>
+
                             <div className="my-4">
                                 <button type="submit" disabled={disabled} className="btn bg-primary text-white disabled:text-slate-100">Submit</button>
                             </div>
+
                         </div>
                     ) : (
                         // Researcher form
@@ -182,7 +196,7 @@ function RegisterForm({ mode, onRegister }: { mode: RegisterType, onRegister: (e
                                 <label htmlFor="email" className="font-semibold">Email:<span>*</span></label>
                                 <input type="text" name="email" className="input" onChange={handleInputChange} />
                                 <div className="inline-flex gap-2">
-                                    <input type="checkbox" className="checkbox" id="work-email" name="work-email" onChange={handleInputChange} />
+                                    <input type="checkbox" className="checkbox checkbox-sm" id="work-email" name="work-email" onChange={handleInputChange} />
                                     <label htmlFor="work-email">This is an institutional email<InfoItem message="The chances of becoming a researcher or enjoying other benefits for example, being a community member increases when you provide an institutional email. We only verify this email once when you provide it by sending a verification mail. We won't mail you again after unless you change your settings." /></label>
                                 </div>
                             </div>
@@ -222,6 +236,7 @@ function RegisterForm({ mode, onRegister }: { mode: RegisterType, onRegister: (e
                             <div className="my-4">
                                 <button type="submit" disabled={disabled} className="btn bg-primary text-white disabled:text-slate-100">Submit</button>
                             </div>
+
                         </div>
                     )
                 }

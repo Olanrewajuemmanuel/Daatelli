@@ -6,6 +6,9 @@ module.exports = {
   variants: {
     background: ["responsive", "hover", "focus", "active", "disabled"],
   },
+  daisyui: {
+    themes: ["light", "dark"],
+  },
   theme: {
     extend: {
       colors: {

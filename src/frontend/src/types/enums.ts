@@ -1,6 +1,6 @@
 export enum RegisterType {
-  member = "member",
-  researcher = "researcher",
+  member = "Member",
+  researcher = "Researcher",
 }
 
 export enum FindingsBadge {

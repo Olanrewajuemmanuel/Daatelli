@@ -40,15 +40,18 @@ function AddCitations({ citations, onCitationUpdate }: { citations: Citation[], 
 
     return (
         <div>
-            <input type="text" name="citeText" value={citeText} placeholder="Name(s)" onChange={(e) => setCiteText(e.target.value)} required />
-            <input type="text" name="citeLink" value={citeLink} placeholder="Link" onChange={(e) => setCiteLink(e.target.value)} />
             {errors && <InputError message={errors.findings?.message} />}
-            <button type="button" onClick={() => handleUpdate('add')}>+</button>
+            <div className="flex items-center gap-2">
+                <input type="text" name="citeText" value={citeText} placeholder="Name(s)" className="input input-bordered" onChange={(e) => setCiteText(e.target.value)} required />
+                <input type="text" name="citeLink" value={citeLink} placeholder="Link" className="input input-bordered" onChange={(e) => setCiteLink(e.target.value)} />
+                <button type="button" onClick={() => handleUpdate('add')} className="btn text-lg">+</button>
+            </div>
+
             <div>
                 {citations.map(citation =>
-                    <div key={citation.link}>
-                        <a href={citation.link}>{citation.name}</a>
-                        <button onClick={() => handleUpdate('delete', citation.id)} type="button">Remove</button>
+                    <div key={citation.link} className="flex items-center justify-between gap-2 my-5">
+                        <a href={citation.link} className="link">{citation.name}</a>
+                        <button onClick={() => handleUpdate('delete', citation.id)} type="button" className="btn btn-sm btn-outline">Remove</button>
                     </div>
                 )}
             </div>

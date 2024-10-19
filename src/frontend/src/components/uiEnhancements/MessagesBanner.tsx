@@ -13,7 +13,7 @@ function MessagesBanner({ onUpdate, messages }: {
       {
         messages.map(({ message, type, id }, idx) =>
           <div key={id} className={`${type === 'success' ? 'bg-primary' : `bg-red-600`} px-4 py-2 rounded-md shadow-md text-slate-50 absolute top-2 left-[50%] transform -translate-x-1/2 w-[60%] mx-auto z-${idx + 1} `}>
-            <button onClick={() => onUpdate({ type: 'DELETE', id, })} className="text-3xl absolute top-0 right-5"><span className="text-slate-50">&times;</span></button>
+            <button onClick={() => onUpdate({ type: 'DELETE', id, })} className="text-base absolute top-2 right-5"><span className="text-slate-50">✕</span></button>
             <div className="mt-4">
               <p className="text-wrap">{message}</p>
               <div className="mt-4">

@@ -72,8 +72,8 @@ function DocumentsFlow({ onCreateFinding }: { onCreateFinding: (findingId: strin
                     // Attestation as last step
                     <AttestationStep />}
 
-                <div>
-                    <button type="submit" disabled={step === 3 && (!methods.formState.isDirty || !methods.formState.isValid || methods.formState.isSubmitting)} className="disabled:text-slate-500">
+                <div className="flex justify-end mt-5">
+                    <button type="submit" className="btn bg-primary text-white disabled:text-slate-500" disabled={step === 3 && (!methods.formState.isDirty || !methods.formState.isValid || methods.formState.isSubmitting)}>
                         {step === 3 ? (methods.formState.isSubmitting ? "Submitting" : "Submit") : "Next"}
                     </button>
                 </div>
