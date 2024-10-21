@@ -7,7 +7,14 @@ module.exports = {
     background: ["responsive", "hover", "focus", "active", "disabled"],
   },
   daisyui: {
-    themes: ["light", "dark"],
+    themes: [
+      {
+        dark: {
+          ...require('daisyui/src/theming/themes')["light"],
+        }
+      },
+    ],
+    base: false,
   },
   theme: {
     extend: {
@@ -16,6 +23,7 @@ module.exports = {
         "primary": "#0778E7",
         "shade-bg": "#EEE",
         "body": "#222",
+        "base-100": "#fff",
       },
       backgroundImage: {
         "noise": "url('./assets/noisy-background.jpg')",
