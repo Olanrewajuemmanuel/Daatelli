@@ -20,6 +20,17 @@ import Developers from "./pages/Developers";
 import About from "./pages/About";
 import Organisation from "./pages/Organisation";
 import { FeaturesContext } from "./contexts";
+import ResearchPosts from "./components/research/posts/ResearchPosts";
+import Events from "./components/events";
+import CollaborativeProjects from "./components/collabs";
+import Topics from "./components/topics";
+import TopResearchers from "./components/research/TopResearchers";
+import Communities from "./components/communities";
+import ResearchTrends from "./components/research/trends";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Shorts from "./components/shorts";
+import ViewFinding from "./pages/Findings/ViewFinding";
 
 const routes = [
   {
@@ -62,10 +73,48 @@ const routes = [
   {
     path: routesMap.feed,
     element: <ProtectedRoute><Feed /></ProtectedRoute>,
+    children: [
+      {
+        path: "",
+        element: <ResearchPosts />,
+      },
+      {
+        path: routesMap.shorts,
+        element: <Shorts />,
+      },
+      {
+        path: routesMap.communities,
+        element: <Communities />,
+      },
+      {
+        path: routesMap.topResearchers,
+        element: <TopResearchers />,
+      },
+      {
+        path: routesMap.trends,
+        element: <ResearchTrends />,
+      },
+      {
+        path: routesMap.hotTopics,
+        element: <Topics />,
+      },
+      {
+        path: routesMap.collaborativeProjects,
+        element: <CollaborativeProjects />,
+      },
+      {
+        path: routesMap.eventsWebinars,
+        element: <Events />,
+      },
+    ]
   },
   {
     path: routesMap.addFindings,
     element: <ProtectedRoute><AddFinding /></ProtectedRoute>,
+  },
+  {
+    path: `${routesMap.viewFinding}/:id`,
+    element: <ProtectedRoute><ViewFinding /></ProtectedRoute>,
   },
 ];
 
@@ -77,6 +126,7 @@ function App() {
         <RouterProvider router={router}></RouterProvider>
       </Suspense>
     </FeaturesContext.Provider>
+    <ToastContainer />
   </CookiesProvider>;
 }
 

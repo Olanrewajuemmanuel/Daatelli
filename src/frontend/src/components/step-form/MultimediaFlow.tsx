@@ -7,35 +7,18 @@ import { MultiMediaFormType, User } from "../../types/types";
 import { ObjectSchema } from "yup";
 import { createMultiMediaUploadFileSchema } from "../../validations/schema/multimedia";
 import { attestationSchema, uploadFindingsSchema } from "../../validations/schema/commons";
-import { useCookies } from "react-cookie";
-import { getUserProfile } from "../../actions/user";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { createFinding } from "../../actions/findings";
+import { useUserStore } from "../../store/user";
 
 function MultimediaFlow({ onCreateFinding }: { onCreateFinding: (findingId: string) => void }) {
     const [step, setStep] = useState(1);
-    const [user, setUser] = useState<User>()
-    const [cookies] = useCookies(['access'])
-
-
-    useEffect(() => {
-        const getUserData = async () => {
-            try {
-                const user = await getUserProfile(cookies.access);
-                setUser(user);
-            } catch (err) {
-                console.error(err);
-            }
-        }
-
-        getUserData();
-
-    }, [])
+    const { user } = useUserStore()
 
     const getSchema = (step: number): ObjectSchema<MultiMediaFormType> => {
         switch (step) {
             case 1:
-                return createMultiMediaUploadFileSchema(user?.fullName);
+                return createMultiMediaUploadFileSchema(user?.full_name);
             case 2:
                 return uploadFindingsSchema;
             default:
@@ -53,7 +36,7 @@ function MultimediaFlow({ onCreateFinding }: { onCreateFinding: (findingId: stri
         } else {
             // Submit data to the server and redirect to the finding details page
             return new Promise((resolve) => {
-                resolve(createFinding(data, cookies.access))
+                resolve(createFinding(data))
 
             }).then(data => {
                 if ((data as { id: string }).id)

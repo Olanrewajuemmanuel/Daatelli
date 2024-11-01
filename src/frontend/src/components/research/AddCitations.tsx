@@ -12,30 +12,30 @@ function AddCitations({ citations, onCitationUpdate }: { citations: Citation[], 
     const [citeLink, setCiteLink] = useState('')
 
     function handleUpdate(action: 'delete' | 'add', id?: string): void {
-        if (!citeText) {
-            setError("findings", { message: 'Add a citation text', type: "onChange" })
-            return;
-        };
-        if (!citeLink) {
-            setError("findings", { message: 'Add a valid URL', type: "onChange" })
-            return;
-        };
-        urlValidationSchema.validate(citeLink).then(() => {
+        if (action === 'add') {
+            if (!citeText) {
+                setError("findings", { message: 'Add a citation text', type: "onChange" })
+                return;
+            };
+            if (!citeLink) {
+                setError("findings", { message: 'Add a valid URL', type: "onChange" })
+                return;
+            };
             const citation = {
-                id: idGenerator,
+                id: idGenerator(),
                 name: citeText,
                 link: citeLink
             }
-            if (action === 'add') {
+            urlValidationSchema.validate(citeLink).then(() => {
                 onCitationUpdate('add', citation)
-            } else if (action === 'delete') {
-                onCitationUpdate('delete', undefined, id)
-            }
+            }).catch(err => setError("findings", { message: err.errors }))
+            // Reset the form
             setCiteLink('')
             setCiteText('')
             clearErrors("findings")
-        }).catch(err => setError("findings", { message: err.errors }))
-
+        } else if (action === 'delete') {
+            onCitationUpdate('delete', undefined, id)
+        }
     }
 
     return (

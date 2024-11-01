@@ -1,31 +1,13 @@
 import { useEffect, useState } from "react";
-import { getUserProfile } from "../../actions/user";
-import { useCookies } from "react-cookie";
-import { User } from "../../types/types";
 import { FormProvider, useForm } from "react-hook-form";
 import UploadCodeFile from "../research/common/UploadCodeFileStep";
 import UploadFindingsStep from "../research/common/UploadFindingsStep";
 import AttestationStep from "../research/common/AttestationStep";
+import { useUserStore } from "../../store/user";
 
 function CodeFlow({ onCreateFinding }: { onCreateFinding: (findingId: string) => void }) {
     const [step, setStep] = useState(1);
-    const [user, setUser] = useState<User>()
-    const [cookies] = useCookies(['access'])
-
-
-    useEffect(() => {
-        const getUserData = async () => {
-            try {
-                const user = await getUserProfile(cookies.access);
-                setUser(user);
-            } catch (err) {
-                console.error(err);
-            }
-        }
-
-        getUserData();
-
-    }, [])
+    const { setUser } = useUserStore()
 
     const methods = useForm({
     });

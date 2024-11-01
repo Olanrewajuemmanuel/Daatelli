@@ -8,7 +8,7 @@ import { FindingsBadge } from "../../types/enums"
 import AddCitations from "./AddCitations"
 import { useFormContext } from "react-hook-form"
 import InputError from "../uiEnhancements/InputError"
-import { idGenerator } from "../../constants/utils"
+import { v4 as uuid } from 'uuid';
 
 const badgesOptions = [
     { 'label': 'Significant/Expected outcome', value: FindingsBadge.significant },
@@ -37,25 +37,23 @@ function FindingsFormElement() {
 
     }
 
-
     async function handleAddition(): Promise<void> {
         const newFinding: Findings = {
-            id: idGenerator,
+            id: uuid(),
             badge: findingsBadge,
             text: findingsText,
             citations: findingsCitation,
         }
-        if (newFinding.text.trim().split(/\s+/).length > 15) {
-            setError('findings', { message: 'Findings should be no more than 15 words' }, { shouldFocus: true });
+        if (newFinding.text.trim().split(/\s+/).length > 25) {
+            setError('findings', { message: 'Findings should be no more than 25 words' }, { shouldFocus: true });
             return;
         }
         setFindings(findings => [...findings, newFinding]);
         setValue("findings", [...findings, newFinding], { shouldValidate: true })
+        // Reset the form
         setFindingsText('')
         setFindingsCitation([])
         setDisplayCite(false)
-
-
     }
 
     function handleCitationUpdate(action: 'delete' | 'add', citation?: Citation, id?: string) {
@@ -74,10 +72,10 @@ function FindingsFormElement() {
             <label htmlFor="findings" className="label">Add your findings:<InfoItem message={`Share your findings with the world! Drag and drop to re-order your findings.`} linkOptions={{ text: `Learn more on how to make your findings more presentable using the ${globals.appName} way`, link: '/' }} /></label>
             <input type="text" name="findings" placeholder="Add your Findings..." onChange={handleChange} value={findingsText} className="input input-bordered" />
             {errors && <InputError message={errors.findings?.message} />}
-            <div hidden={!findingsText} className="shadow-md bg-white z-99 p-3 space-y-3 text-wrap overflow-hidden">
+            <div hidden={!findingsText} className="min-h-72 shadow-md bg-white p-3 space-y-3 text-wrap overflow-hidden">
                 <div className="flex justify-between">
-                    <p><span className="text-slate-300">Finding:</span> {findingsText}</p>
-                    <button className="btn btn-sm btn-outline" onClick={handleAddition}>Add Finding</button>
+                    <p><span className="text-slate-400">Finding:</span> {findingsText}</p>
+                    <p className="btn btn-sm bg-primary text-white" onClick={handleAddition}>Add Finding</p>
                 </div>
                 <Select options={badgesOptions} defaultValue={badgesOptions[0]} onChange={handleBadgeChange} />
                 <button type="button" className="btn btn-sm btn-outline" onClick={() => setDisplayCite(!displayCite)}>{displayCite ? 'Hide' : 'Add'} Citation(s)</button>

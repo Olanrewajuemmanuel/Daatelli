@@ -24,5 +24,7 @@ async def get_users_by_association(association: bool = True, limit: int = 100):
         UserAssociationItem(id=uuid4(), full_name='Jonathan Pedigo', avatar='https://c5.rgstatic.net/m/41010379691719/images/icons/svgicons/publication-creation-grey.svg'),
         UserAssociationItem(id=uuid4(), full_name='Rowling Potter', avatar=None),
         UserAssociationItem(id=uuid4(), full_name='Bex Tiller', avatar='https://c5.rgstatic.net/m/41010379691719/images/icons/svgicons/publication-creation-grey.svg'),
+        UserAssociationItem(id=uuid4(), full_name='Jane Doe', avatar='https://ui-avatars.com/api/?name=JaneDoe'),
+        UserAssociationItem(id=uuid4(), full_name='John Doe', avatar='https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp'),
     ]
 

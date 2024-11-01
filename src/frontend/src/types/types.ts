@@ -2,6 +2,7 @@ import { FindingsBadge, RegisterType } from "./enums";
 import { InferType } from "yup";
 import {
   attestationSchema,
+  uploadAnalysisSchema,
   uploadFileSchema,
   uploadFindingsSchema,
 } from "../validations/schema/commons";
@@ -36,11 +37,11 @@ export type RegistrationData = {
 
 export type User = {
   id: string;
-  fullName: string;
+  full_name: string;
   role: RegisterType;
   email: string;
-  onBoarded: boolean;
-  avatarUrl: string;
+  onboarded: boolean;
+  avatar: string;
   // ...
 };
 
@@ -66,10 +67,12 @@ export type Findings = {
 export type UploadFileSchemaType = InferType<typeof uploadFileSchema>;
 export type MultiMediaFileSchemaType = InferType<typeof uploadFileSchema>;
 export type UploadFindingSchemaType = InferType<typeof uploadFindingsSchema>;
+export type UploadAnalysisSchemaType = InferType<typeof uploadAnalysisSchema>;
 export type AttestationSchemaType = InferType<typeof attestationSchema>;
 export type DocumentFormSchemaType =
   | UploadFileSchemaType
   | UploadFindingSchemaType
+  | UploadAnalysisSchemaType
   | AttestationSchemaType;
 
 export type LoginResponse = {
@@ -80,3 +83,5 @@ export type MultiMediaFormType =
   | MultiMediaFileSchemaType
   | UploadFindingSchemaType
   | AttestationSchemaType;
+
+export type ResearchPost = Record<any, any>

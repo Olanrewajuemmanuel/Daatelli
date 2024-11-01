@@ -10,7 +10,7 @@ function ResearchTypeDisplay({ title, helpText, description, link }: { title: st
                 </button>
             }
 
-            <p className="text-sm text-slate-600">{description}</p>
+            <p className="text-sm text-body">{description}</p>
         </div>
     )
 }

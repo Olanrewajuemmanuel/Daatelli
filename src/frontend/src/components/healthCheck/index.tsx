@@ -49,7 +49,7 @@ export default function HealthCheck() {
     }, [])
     if (!healthCheckSuccess) {
         return (
-            <div className="inter-body absolute top-0 left-0 w-full h-full opacity-90 bg-slate-700 flex flex-col items-center justify-center">
+            <div className="inter-body fixed top-0 left-0 bottom-0 h-screen w-full opacity-90 bg-slate-700 flex flex-col items-center justify-center">
                 <div className="bg-white shadow-lg rounded-lg py-8 px-4 min-w-[300px] space-y-4">
                     <img src={PlugDisconnectedLogo} alt="" width={60} className="mx-auto" />
 

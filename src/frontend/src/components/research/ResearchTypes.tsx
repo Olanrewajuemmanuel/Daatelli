@@ -18,7 +18,7 @@ function ResearchTypes({ toggleDisplay }: { toggleDisplay: React.Dispatch<React.
             <div className="h-screen overflow-y-auto overflow-x-hidden">
                 <div className="flex justify-between items-center p-3">
                     <h3 className="font-semibold">Research Types</h3>
-                    <button className="text-3xl" onClick={() => toggleDisplay(false)}>✕</button>
+                    <button className="text-lg lg:text-xl" onClick={() => toggleDisplay(false)}>✕</button>
                 </div>
                 <div className="border-t border-b border-gray-200">
                     <ul>

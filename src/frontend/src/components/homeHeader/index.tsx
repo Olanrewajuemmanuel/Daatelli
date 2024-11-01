@@ -15,10 +15,10 @@ function HomeHeader({ cookies }: { cookies: any }) {
             </a>
             <div className="mr-8 w-full flex items-center justify-between gap-x-5">
                 <ul className={`menu menu-vertical lg:menu-horizontal gap-8 font-semibold absolute left-0 top-0 right-0 lg:relative z-99 bg-white lg:bg-transparent ${showMenu ? 'menu' : 'hidden'}`}>
-                    <li><a href={routesMap.about} className="mt-10 lg:mt-0 lg:hover:bg-transparent">About Daatelli</a></li>
+                    <li><a href={routesMap.about} className="mt-10 lg:mt-0 hover:bg-transparent">About Daatelli</a></li>
                     <li><a href={routesMap.developers} className="lg:hover:bg-transparent">Developers</a></li>
                     <li><a href={routesMap.roadmap} className="lg:hover:bg-transparent">What's new? <span className="indicator-icon"></span></a></li>
-                    <button className="btn btn-ghost hover:bg-transparent absolute right-0 lg:hidden" onClick={() => setShowMenu(false)}><span>✕</span></button>
+                    <button className="btn btn-ghost hover:bg-transparent absolute right-0 text-2xl lg:hidden" onClick={() => setShowMenu(false)}><span>✕</span></button>
                 </ul>
                 <div className="w-full text-end lg:w-auto">
                     {cookies.access ? (

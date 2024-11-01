@@ -12,6 +12,12 @@ const supportedDocTypes = [
   "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
   "application/vnd.ms-powerpoint",
   "application/vnd.oasis.opendocument.presentation",
+  "application/msword",
+  "application/json",
+  "text/csv",
+  "application/xml",
+  "application/x-spss-sav",
+  "application/x-latex"
 ];
 
 export const createUploadFileSchema = (fullName: string | undefined) => {
@@ -54,22 +60,15 @@ export const createUploadFileSchema = (fullName: string | undefined) => {
     privateCopy: yup.boolean(),
     researchers: yup
       .array<SuggestionItem[]>()
-      .min(1, "You must add at least your name as an author"),
-      // .test(
-      //   "have_a_name",
-      //   "Fill your full name in your profile to add a finding",
-      //   () => {
-      //     if (!fullName) return false;
-      //     return true;
-      //   }
-      // )
-      // .test(
-      //   "name_in_list",
-      //   "Your name must be in the list of authors",
-      //   (researchers) => {
-      //     if (!researchers || researchers.length === 0) return false;
-      //     return researchers.find((researcher) => researcher.name === fullName);
-      // }
+      .min(1, "You must add at least your name as an author")
+      .test(
+        "name_in_list",
+        "Your name must be in the list of authors",
+        (researchers) => {
+          if (!researchers || researchers.length === 0) return false;
+          return researchers.find((researcher) => researcher.name === fullName);
+        }
+      ),
     doiOrLink: yup.string().url("Link must be a valid URL"),
   });
 };
@@ -108,13 +107,17 @@ export const uploadFindingsSchema = yup.object().shape({
   abstract: yup
     .string()
     .min(100, "Abstract should be a minimum of 100 characters")
-    .max(255, "Abstract should be a maximum of 255 characters"),
+    .max(1500, "Abstract should be between 250-300 words").trim(),
   findings: yup
     .array<Findings[]>()
     .required("Finding is required")
     .min(1, "Add at least one Finding"),
-  domainOfResearch: yup.string().required("Add your research domain"),
+  domainOfResearch: yup.string(),
   tags: yup.array<string[]>(),
+});
+
+export const uploadAnalysisSchema = yup.object().shape({
+  type: yup.string().required(),
 });
 
 export const urlValidationSchema = yup.string().url("Add a valid URL");
@@ -123,5 +126,4 @@ export const attestationSchema = yup.object().shape({
   attestation: yup
     .boolean()
     .isTrue("You need to agree to the above terms to continue")
-    .required("You need to agree to the above terms to continue"),
 });

@@ -4,7 +4,7 @@ import { globals, routesMap } from "../../constants"
 function Attestation() {
     return (
         <div className="leading-relaxed">
-            <div className="bg-slate-100 text-slate-600 rounded-lg p-3 my-3">
+            <div className="text-body bg-yellow-200 rounded-lg p-3 my-3 text-sm">
                 {globals.appName[0].toLocaleUpperCase() + globals.appName.slice(1)} takes copyright and compliance issues seriously. Kindly ensure you review the following content before submitting
             </div>
             <h1 className="my-3 font-semibold">Attestation of Authorship, Compliance and Terms (ACTs)</h1>

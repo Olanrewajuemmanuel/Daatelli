@@ -31,7 +31,7 @@ function AuthorsDragAndDrop({ selectedNames, handleDeletion, onDrag }: { selecte
                     ref={provided.innerRef}
                     {...provided.draggableProps}
                     {...provided.dragHandleProps}
-                    className="flex items-center justify-between gap-2 p-2 my-3 rounded-md bg-white shadow-sm px-4 md:w-2/3"
+                    className="flex items-center justify-between gap-2 p-2 my-3 rounded-md bg-white shadow-sm px-4 md:w-3/5"
                   >
                     <div className="flex items-center gap-4">
                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5">
@@ -43,7 +43,7 @@ function AuthorsDragAndDrop({ selectedNames, handleDeletion, onDrag }: { selecte
                       </div>
                     </div>
 
-                    <button type="button" onClick={() => handleDeletion(name.id)} className="text-xl">✕</button>
+                    <button type="button" onClick={() => handleDeletion(name.id)} className="text-lg">✕</button>
                   </li>
                 )}
               </Draggable>

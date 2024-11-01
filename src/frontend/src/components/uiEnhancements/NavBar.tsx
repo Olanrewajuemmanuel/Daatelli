@@ -23,13 +23,13 @@ function NavBar({ onMessagesUpdate }: {
             removeCookies("refresh")
             return;
         }
-        onMessagesUpdate({ type: 'ADD', message: { id: idGenerator, message: 'An error occurred while signing you out. Try again later.', type: 'warning' } })
+        onMessagesUpdate({ type: 'ADD', message: { id: idGenerator(), message: 'An error occurred while signing you out. Try again later.', type: 'warning' } })
     }
 
 
     return (
         <nav className="inter-body navbar justify-between my-5 rounded-lg shadow-md w-[95%] mx-auto">
-            <a href={routesMap.home}>
+            <a href={routesMap.feed}>
                 <img src={DatelliLogo} alt="Datelli Logo" width={150} className="object-contain max-w-full" />
             </a>
             <ul className="gap-3 font-semibold">

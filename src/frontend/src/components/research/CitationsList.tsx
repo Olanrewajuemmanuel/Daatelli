@@ -6,7 +6,7 @@ function CitationsList({ citations }: { citations: Citation[] }) {
             <div key={citations[0].link}>
                 <a href={citations[0].link}>{citations[0].name}</a>
             </div>
-            {citations.length > 1 && <p>and {citations.length - 1} others</p>}
+            {citations.length > 1 && <p>and {citations.length - 1} other(s)</p>}
         </div>
     )
 }

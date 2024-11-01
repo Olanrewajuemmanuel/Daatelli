@@ -11,7 +11,7 @@ function UploadFileStep() {
     const { register, getValues, formState: { errors } } = useFormContext<UploadFileSchemaType>();
     const files = getValues('files') || []
     return (
-        <div className="space-y-5">
+        <div className="space-y-3">
             <div className="form-control">
                 <div className="label">
                     <span className="label-text">Upload files (max. 200MB total for a max of 10 files)</span>
@@ -21,8 +21,8 @@ function UploadFileStep() {
             </div>
             {
                 files.length > 0 && (
-                    <div className="mt-2 flex items-center gap-2">
-                        <input {...register('privateCopy')} type="checkbox" name="privateCopy" className="checkbox checkbox-sm" />
+                    <div className="flex items-center gap-x-2">
+                        <input {...register('privateCopy')} type="checkbox" id="privateCopy" name="privateCopy" className="checkbox checkbox-sm" />
                         <label htmlFor="privateCopy">Upload as a private copy <InfoItem message="Private copies are only visible to your account and can be viewed in this Finding details once created." /></label>
                         {errors && <InputError message={errors.privateCopy?.message?.toString()} />}
                     </div>

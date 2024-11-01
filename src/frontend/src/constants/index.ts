@@ -14,6 +14,17 @@ export const routesMap = {
   privacyPolicy: "/privacy-policy",
   news: "/news",
   genesis: "/genesis",
+  shorts: "shorts",
+  communities: "communities",
+  topResearchers: "top-researchers",
+  trends: "trends",
+  hotTopics: "hot-topics",
+  collaborativeProjects: "collaborations",
+  eventsWebinars: "events",
+  achievements: "achievements",
+  followers: "activities/followers",
+  following: "activities/following",
+  messages: "system/messages",
 };
 
 export const globals = {
@@ -24,10 +35,11 @@ export const serverRoutes = {
   login: `login`,
   logout: `logout`,
   users: `users`,
-  userFindings: `user-findings`,
+  userFindings: `findings`,
   me: `users/me`,
   associations: `users/associations`,
   health: `health`,
+  feed: `feed`,
 } as const;
 
 export function getURL(route: keyof typeof serverRoutes) {
@@ -40,3 +52,9 @@ export function getURL(route: keyof typeof serverRoutes) {
     return `/api/v1/${route}`
   }
 }
+
+export const authorizedURLs = [
+  serverRoutes.me,
+  serverRoutes.associations,
+  serverRoutes.userFindings,
+];

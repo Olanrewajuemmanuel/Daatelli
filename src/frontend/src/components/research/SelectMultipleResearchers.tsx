@@ -6,7 +6,7 @@ import AuthorsDragAndDrop from "./AuthorsDragAndDrop";
 import { useFormContext } from "react-hook-form";
 import InputError from "../uiEnhancements/InputError";
 import { useCookies } from "react-cookie";
-import { getUserAssociations } from "../../actions/user";
+import { getUserAssociations, getUserProfile } from "../../actions/user";
 import { idGenerator } from "../../constants/utils";
 
 
@@ -24,7 +24,7 @@ function SelectMultipleResearchers() {
         async function getUsersProfiles() {
             // pre-fetch users profiles
             try {
-                const response = await getUserAssociations(cookies.access, { association: true, limit: 10 });
+                const response = await getUserAssociations({ association: true, limit: 10 });
 
                 setSuggestions(response.map((association: { id: string; full_name: string; avatar: string | null; }) => ({
                     id: association.id,
@@ -41,14 +41,21 @@ function SelectMultipleResearchers() {
             }
         }
 
+        async function getUserInfo() {
+            const response = await getUserProfile()
+            if (selectedNames.length === 0) {
+                setSelectedNames([{ id: response.id, name: response.full_name, avatarUrl: response.avatar }])
+                setValue("researchers", [{ id: response.id, name: response.full_name, avatarUrl: response.avatar }], { shouldValidate: true, })
+            }
+        }
+
+        getUserInfo();
         getUsersProfiles();
     }, [researcher])
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         const input = e.target.value;
         setResearcher(input)
-
-
         clearTimeout(timeout);
         timeout = setTimeout(() => {
             if (input && input.trim() !== "") {
@@ -59,7 +66,7 @@ function SelectMultipleResearchers() {
 
                 if (filteredSuggestions.length <= 0) {
                     // Display input as fallback if there are no suggestions
-                    setSuggestions([{ id: idGenerator, name: input }])
+                    setSuggestions([{ id: idGenerator(), name: input }])
                 } else {
                     setSuggestions([...filteredSuggestions]);
                 }
@@ -86,7 +93,7 @@ function SelectMultipleResearchers() {
     return (
         <div>
             {errors && <InputError message={errors.researchers?.message?.toString()} />}
-            <label htmlFor="researchers" className="label">Add Authors:<InfoItem message="Arrange authors in order of relevance from highest (first author) to least relevant. Drag and drop names to re-order." /></label>
+            <label htmlFor="researchers" className="label">Add Authors:<InfoItem message="You must be a contributor to any Finding you post. You may arrange authors in order of contribution from highest (first author, typically yourself) to least. Drag and drop names to re-order." /></label>
             <div id="">
                 <AuthorsDragAndDrop selectedNames={selectedNames} handleDeletion={handleDeletion} onDrag={setSelectedNames} />
                 <div className="form-control space-y-2 relative">
@@ -95,7 +102,7 @@ function SelectMultipleResearchers() {
                 </div>
             </div>
             {suggestions.length > 0 && (
-                <div className="shadow-md" data-testid="suggestionContainer">{loading ? 'Loading...' : suggestions.map(suggestion =>
+                <div className="shadow-md max-h-36 overflow-y-auto" data-testid="suggestionContainer">{loading ? 'Loading...' : suggestions.map(suggestion =>
                     <ResearcherSuggestionItem suggestion={suggestion} onClickSuggestion={handleAddition} key={suggestion.id} />
                 )}
                 </div>
